@@ -19,7 +19,7 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cubo3D">
 
@@ -27,7 +27,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="landscape"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|layoutDirection|density|uiMode">
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

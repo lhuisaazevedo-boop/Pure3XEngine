@@ -7,16 +7,31 @@ android {
     compileSdk 33
     buildToolsVersion "33.0.2"
 
+    ndkVersion "27.0.12077973"
+
     defaultConfig {
         applicationId "com.pure3xengenie.emulador"
         minSdk 29
         targetSdk 33
-
         versionCode 1
         versionName "0.2.5 Alpha"
 
         ndk {
             abiFilters "arm64-v8a"
+        }
+
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++20 -fexceptions -frtti"
+                arguments "-DANDROID_ABI=arm64-v8a"
+            }
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "../../CMakeLists.txt"
+            version "3.22.1"
         }
     }
 
@@ -24,10 +39,9 @@ android {
         debug {
             debuggable true
             minifyEnabled false
+            shrinkResources false
         }
-
         release {
-            debuggable false
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -46,9 +60,8 @@ android {
     }
 
     packagingOptions {
-        jniLibs {
-            useLegacyPackaging = true
-        }
+        pickFirst "lib/arm64-v8a/libvulkan.so.1"
+        pickFirst "lib/arm64-v8a/libc++_shared.so"
     }
 
     lintOptions {
@@ -58,3 +71,4 @@ android {
 
 dependencies {
 }
+

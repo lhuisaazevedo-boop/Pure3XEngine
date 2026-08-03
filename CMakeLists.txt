@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.22.1)
 
 project(
     Pure3XEngenie
@@ -7,17 +7,35 @@ project(
     LANGUAGES CXX
 )
 
-# ==========================================================
-# C++ Configuration
-# ==========================================================
+# ============================================================
+# Configuração C++
+# ============================================================
 
-# Utilizar o padrão ISO C++20
+# Padrão C++
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Gerar código independente de posição (necessário para .so no Android)
+# Biblioteca compartilhada (.so)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+# STL do Android
+set(CMAKE_ANDROID_STL_TYPE c++_shared)
+
+# Tipo de build padrão
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
+message(STATUS "========================================")
+message(STATUS "   Pure3XEngenie v0.2.5 Alpha")
+message(STATUS "========================================")
+message(STATUS "Engine     : ${PROJECT_NAME}")
+message(STATUS "Version    : ${PROJECT_VERSION}")
+message(STATUS "Platform   : Android")
+message(STATUS "C++        : C++20")
+message(STATUS "Build Type : ${CMAKE_BUILD_TYPE}")
+message(STATUS "========================================")
 
 # ==========================================================
 # Build Options
@@ -149,11 +167,12 @@ target_sources(
 # ==========================================================
 # Link Libraries
 # ==========================================================
+
 find_package(Threads REQUIRED)
-find_package(Vulkan QUIET)
 
 if(PURE3X_BUILD_ANDROID)
-    # Tenta encontrar as libs nativas. Se falhar (Termux), usa o nome direto como fallback
+
+    # Bibliotecas nativas do Android
     find_library(LOG_LIB log)
     if(NOT LOG_LIB)
         set(LOG_LIB log)
@@ -168,33 +187,24 @@ if(PURE3X_BUILD_ANDROID)
     if(NOT JNIGRAPHICS_LIB)
         set(JNIGRAPHICS_LIB jnigraphics)
     endif()
-endif()
 
-target_link_libraries(
-    lhuis.pure3x
-    PRIVATE
-    Threads::Threads
-)
+    if(ANDROID)
+    set(VULKAN_LIB vulkan)
+    else()
+    find_library(VULKAN_LIB vulkan)
+    endif()
 
-if(PURE3X_BUILD_ANDROID)
     target_link_libraries(
         lhuis.pure3x
         PRIVATE
+        Threads::Threads
         ${LOG_LIB}
         ${ANDROID_LIB}
         ${JNIGRAPHICS_LIB}
+        ${VULKAN_LIB}
     )
+
 endif()
-
-if(Vulkan_FOUND)
-    target_link_libraries(
-        lhuis.pure3x
-        PRIVATE
-        Vulkan::Vulkan
-    )
-endif()
-
-
 # ==========================================================
 # Compiler Options
 # ==========================================================
@@ -259,7 +269,7 @@ message(STATUS "Platform    : Android")
 message(STATUS "C++         : C++20")
 message(STATUS "Build Type  : ${CMAKE_BUILD_TYPE}")
 
-if(Vulkan_FOUND)
+if(VULKAN_LIB)
     message(STATUS "Graphics    : Vulkan Enabled")
 else()
     message(STATUS "Graphics    : Vulkan Disabled")

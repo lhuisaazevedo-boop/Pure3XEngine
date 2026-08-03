@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="driver_options">
+        <item>OpenGL ES 3.0</item>
+        <item>Vulkan</item>
+    </string-array>
+
+    <string-array name="driver_values">
+        <item>opengl</item>
+        <item>vulkan</item>
+    </string-array>
+
+</resources>
