@@ -1,0 +1,27 @@
+Pure3XEngine
+Version: 0.2.6 Alpha
+
+Release: Pure3XEngine-0.2.6-Alpha-20260804_214324
+Date: 04/08/2026
+Time: 21:43:25
+
+Project:
+/data/data/com.termux/files/home/Pure3XEngine
+
+Git Branch:
+main
+
+Git Commit:
+c323096
+
+APK:
+1
+
+Native Libraries:
+5
+
+Modules:
+CoreEmulator
+Cubo3D
+QEMUCenter
+Android

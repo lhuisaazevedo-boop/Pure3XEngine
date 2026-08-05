@@ -1,6 +1,6 @@
-# 🚀 Pure3XEngenie v0.2.0 Alpha
+# 🚀 Pure3XEngine v0.2.0 Alpha
 
-A versão **v0.2.0 Alpha** marca o início de uma nova fase do Pure3XEngenie.
+A versão **v0.2.0 Alpha** marca o início de uma nova fase do Pure3XEngine.
 
 Após a consolidação da série 0.1.x, o projeto passa a focar totalmente na infraestrutura Android, preparando a Engine para a futura interface gráfica (APK) e para a evolução dos componentes internos da emulação.
 
@@ -135,4 +135,4 @@ Desenvolvedor: **LhuisDev**
 
 ---
 
-O Pure3XEngenie continua evoluindo em direção ao objetivo de construir uma Engine de emulação PlayStation 3 moderna, modular e otimizada para Android.
+O Pure3XEngine continua evoluindo em direção ao objetivo de construir uma Engine de emulação PlayStation 3 moderna, modular e otimizada para Android.

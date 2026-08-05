@@ -1,0 +1,155 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+# ============================================================
+# Pure3XEngine
+# Instalador MS-DOS 6.22 - QEMU
+# Sistema modular com troca de disquetes pelo QEMU Monitor
+# ============================================================
+
+ROOT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
+
+INIT="$ROOT_DIR/tools/common/init.sh"
+
+if [ -f "$INIT" ]; then
+    source "$INIT"
+else
+    echo "[ERRO] init.sh não encontrado:"
+    echo "$INIT"
+    exit 1
+fi
+
+# ------------------------------------------------------------
+# Diretórios
+# ------------------------------------------------------------
+
+FLOPPY_DIR="$ROOT_DIR/qemu/floppies"
+VM_DIR="$ROOT_DIR/qemu/vms/msdos"
+
+HDD="$VM_DIR/msdos.qcow2"
+
+DISK1="$FLOPPY_DIR/dos-622-disk1.img"
+DISK2="$FLOPPY_DIR/dos-622-disk2.img"
+DISK3="$FLOPPY_DIR/dos-622-disk3.img"
+
+MONITOR="$VM_DIR/qemu-monitor.sock"
+
+# ------------------------------------------------------------
+# Preparação
+# ------------------------------------------------------------
+
+mkdir -p "$VM_DIR"
+
+echo
+echo "=================================================="
+echo "       P3XE - INSTALADOR MS-DOS 6.22"
+echo "=================================================="
+echo
+echo "HD:"
+echo "  $HDD"
+echo
+echo "Disquetes:"
+echo "  Disk 1: $DISK1"
+echo "  Disk 2: $DISK2"
+echo "  Disk 3: $DISK3"
+echo
+echo "Monitor:"
+echo "  $MONITOR"
+echo
+
+# ------------------------------------------------------------
+# Verificar QEMU
+# ------------------------------------------------------------
+
+if ! command -v qemu-system-i386 >/dev/null 2>&1; then
+    echo "[ERRO] qemu-system-i386 não encontrado."
+    exit 1
+fi
+
+# ------------------------------------------------------------
+# Verificar HD
+# ------------------------------------------------------------
+
+if [ ! -f "$HDD" ]; then
+    echo "[ERRO] Disco virtual não encontrado:"
+    echo "$HDD"
+    echo
+    echo "Crie o msdos.qcow2 antes de iniciar a instalação."
+    exit 1
+fi
+
+# ------------------------------------------------------------
+# Verificar os três disquetes
+# ------------------------------------------------------------
+
+for DISK in "$DISK1" "$DISK2" "$DISK3"; do
+
+    if [ ! -f "$DISK" ]; then
+        echo "[ERRO] Disquete não encontrado:"
+        echo "$DISK"
+        exit 1
+    fi
+
+done
+
+echo "[OK] Os 3 disquetes foram encontrados."
+echo "[OK] Disco virtual encontrado."
+
+# ------------------------------------------------------------
+# Remover monitor antigo
+# ------------------------------------------------------------
+
+if [ -e "$MONITOR" ]; then
+    echo "[*] Removendo monitor antigo..."
+    rm -f "$MONITOR"
+fi
+
+echo
+echo "=================================================="
+echo " INICIANDO MS-DOS 6.22 - SETUP DISK #1"
+echo "=================================================="
+echo
+echo "Quando o instalador pedir Setup Disk #2:"
+echo
+echo "  $ROOT_DIR/tools/qemu/msdos/trocar_disco.sh 2"
+echo
+echo "Quando pedir Setup Disk #3:"
+echo
+echo "  $ROOT_DIR/tools/qemu/msdos/trocar_disco.sh 3"
+echo
+echo "IMPORTANTE:"
+echo "Execute a troca em outra sessão do Termux."
+echo
+echo "=================================================="
+echo
+
+# ------------------------------------------------------------
+# Iniciar máquina virtual
+# ------------------------------------------------------------
+
+qemu-system-i386 \
+    -name "P3XE MS-DOS 6.22" \
+    -m 64 \
+    -cpu 486 \
+    -drive file="$HDD",format=qcow2,if=ide,index=0,media=disk \
+    -drive file="$DISK1",format=raw,if=floppy,index=0 \
+    -boot order=a \
+    -vga cirrus \
+    -display sdl \
+    -monitor unix:"$MONITOR",server=on,wait=off
+
+EXIT_CODE=$?
+
+# ------------------------------------------------------------
+# Limpeza
+# ------------------------------------------------------------
+
+rm -f "$MONITOR"
+
+echo
+echo "=================================================="
+echo " P3XE - MS-DOS FINALIZADO"
+echo "=================================================="
+echo "QEMU exit code: $EXIT_CODE"
+echo
+
+exit "$EXIT_CODE"

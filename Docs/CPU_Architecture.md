@@ -1,4 +1,4 @@
-# 🧠 Pure3XEngenie - CPU Architecture
+# 🧠 Pure3XEngine - CPU Architecture
 
 ## Status
 

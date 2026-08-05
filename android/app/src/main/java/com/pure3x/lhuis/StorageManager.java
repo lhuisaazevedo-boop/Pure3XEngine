@@ -8,7 +8,7 @@ public class StorageManager {
 
     public StorageManager(File filesDir) {
 
-        root = new File(filesDir, "Pure3XEngenie");
+        root = new File(filesDir, "Pure3XEngine");
 
         create();
     }

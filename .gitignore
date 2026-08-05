@@ -12,3 +12,28 @@ Makefile
 *.log
 *.tar.gz
 *.zip
+
+# ===== P3XE local/build files =====
+.gradle/
+**/.gradle/
+.cxx/
+**/.cxx/
+build/
+**/build/
+local.properties
+**/local.properties
+
+# Native binaries
+*.so
+*.so.*
+*.o
+*.a
+
+# Android signing keys
+*.keystore
+*.jks
+
+# Logs / temporary
+*.log
+*.bak
+*~

@@ -1,0 +1,68 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+ROOT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
+source "$ROOT_DIR/tools/common/init.sh"
+
+while true
+do
+    cabecalho
+
+    titulo "🔧 DEVELOPMENT CENTER"
+
+    echo "1) 🩺 Doctor Inteligente"
+    echo "2) 🔧 Smart Repair"
+    echo "3) 🧹 Clean Projeto"
+    echo "4) 📋 Health Report"
+    echo "5) 📦 Informações do Projeto"
+    echo
+    echo "0) ⬅ Voltar"
+    echo
+
+    read -p "Escolha uma opção: " opcao
+
+    case "$opcao" in
+
+        1)
+            # Chama o script da pasta diagnostics
+            bash "$ROOT_DIR/tools/diagnostics/doctor.sh"
+            pausa
+            ;;
+
+        2)
+            # Chama o script da pasta smart
+            bash "$ROOT_DIR/tools/smart/smart_repair.sh"
+            pausa
+            ;;
+
+        3)
+            # Chama o script da pasta build (ajuste o nome para clean.sh ou clean_project.sh)
+            bash "$ROOT_DIR/tools/build/clean_project.sh"
+            pausa
+            ;;
+
+        4)
+            # Chama o script da pasta diagnostics
+            bash "$ROOT_DIR/tools/diagnostics/report.sh"
+            pausa
+            ;;
+
+        5)
+            echo
+            echo "Projeto : $P3XE_NAME"
+            echo "Versão  : $P3XE_VERSION"
+            echo "Autor   : $P3XE_AUTHOR"
+            pausa
+            ;;
+
+        0)
+            break
+            ;;
+
+        *)
+            erro "Opção inválida!"
+            pausa
+            ;;
+
+    esac
+
+done

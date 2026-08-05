@@ -3,7 +3,7 @@ package com.pure3x.engine;
 public class NativeBridge {
 
     static {
-        System.loadLibrary("Pure3XEngenie");
+        System.loadLibrary("Pure3XEngine");
     }
 
     public static native boolean initialize();

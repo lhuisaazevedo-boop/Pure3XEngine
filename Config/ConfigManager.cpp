@@ -54,7 +54,7 @@ void ConfigManager::SaveConfig(const std::string& path)
         return;
     }
 
-    file << "# Pure3XEngenie v0.1.9 Alpha\n";
+    file << "# Pure3XEngine v0.1.9 Alpha\n";
     file << "\n";
 
     file << "[Engine]\n";

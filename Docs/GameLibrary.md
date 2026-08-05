@@ -2,7 +2,7 @@ Game Library - Planejamento
 
 Objetivo
 
-Implementar uma biblioteca de jogos para o Pure3XEngenie quando a Engine estiver madura.
+Implementar uma biblioteca de jogos para o Pure3XEngine quando a Engine estiver madura.
 
 A biblioteca será responsável por localizar, organizar e exibir todos os jogos instalados pelo usuário.
 
@@ -111,4 +111,4 @@ Observação
 
 Este recurso será implementado somente após a conclusão da base principal da Engine (PPU, SPU, Syscalls, RSX, JIT e Emulator Core).
 
-Prioridade atual: desenvolvimento do núcleo do Pure3XEngenie.
+Prioridade atual: desenvolvimento do núcleo do Pure3XEngine.

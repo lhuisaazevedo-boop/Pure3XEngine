@@ -1,4 +1,4 @@
-name: Pure3XEngenie Android CI
+name: Pure3XEngine Android CI
 
 on:
   push:

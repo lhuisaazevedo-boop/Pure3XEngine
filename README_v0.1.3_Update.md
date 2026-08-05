@@ -1,6 +1,6 @@
-## 🚀 Pure3XEngenie v0.1.3 Update #
+## 🚀 Pure3XEngine v0.1.3 Update #
 
-«⚠️ O Pure3XEngenie encontra-se em fase Alpha.
+«⚠️ O Pure3XEngine encontra-se em fase Alpha.
 
 Novos recursos, melhorias, correções e otimizações são adicionados continuamente durante o desenvolvimento da Engine.»
 
@@ -8,7 +8,7 @@ Novos recursos, melhorias, correções e otimizações são adicionados continua
 
 ## 📌 Status Atual ##
 
-O Pure3XEngenie é uma engine experimental desenvolvida em C++, voltada para pesquisa, aprendizado e evolução da arquitetura do PlayStation 3.
+O Pure3XEngine é uma engine experimental desenvolvida em C++, voltada para pesquisa, aprendizado e evolução da arquitetura do PlayStation 3.
 
 A versão v0.1.3 Update representa um importante avanço no projeto, consolidando uma base estável de compilação, reorganizando a estrutura da Engine e preparando o ambiente para futuras integrações com o Android.
 
@@ -16,7 +16,7 @@ A versão v0.1.3 Update representa um importante avanço no projeto, consolidand
 
 ## ⚠️ Aviso sobre o Android ##
 
-O Pure3XEngenie iniciou oficialmente a preparação para oferecer suporte à plataforma Android.
+O Pure3XEngine iniciou oficialmente a preparação para oferecer suporte à plataforma Android.
 
 O ambiente de desenvolvimento já conta com a infraestrutura necessária para futuras implementações utilizando o Android NDK.
 
@@ -31,10 +31,10 @@ Status do suporte Android: 🚧 Experimental.
 ## 🟢 Boot System ##
 
 - Inicialização da Engine
-- Logo ASCII do Pure3XEngenie
+- Logo ASCII do Pure3XEngine
 - Barra de carregamento
 - Sequência de Boot aprimorada
-- Tela "Pure3XEngenie Ready"
+- Tela "Pure3XEngine Ready"
 
 ## 🧠 Core Engine ##
 
@@ -85,7 +85,7 @@ Status do suporte Android: 🚧 Experimental.
 
 ## 📁 Estrutura do Projeto ##
 ```
-Pure3XEngenie/
+Pure3XEngine/
 ├── Config/
 ├── Core/
 ├── Docs/
@@ -181,4 +181,4 @@ Este projeto é desenvolvido por Lhuis e continua em desenvolvimento ativo.
 
 Você pode estudar, contribuir e adaptar o código conforme os termos da licença MIT, preservando os créditos do autor original.
 
-O Pure3XEngenie continuará recebendo atualizações frequentes. Cópias não oficiais podem ficar desatualizadas e não representar a versão oficial mais recente do projeto.
+O Pure3XEngine continuará recebendo atualizações frequentes. Cópias não oficiais podem ficar desatualizadas e não representar a versão oficial mais recente do projeto.

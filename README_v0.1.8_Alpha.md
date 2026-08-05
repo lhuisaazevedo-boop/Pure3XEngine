@@ -1,10 +1,10 @@
-Pure3XEngenie v0.1.8 Alpha
+Pure3XEngine v0.1.8 Alpha
 
 Experimental PlayStation 3 Engine for Android
 
 Sobre
 
-O Pure3XEngenie é um projeto experimental desenvolvido do zero em C++, com foco na pesquisa e implementação de uma engine de emulação para PlayStation 3 (PS3) otimizada para Android.
+O Pure3XEngine é um projeto experimental desenvolvido do zero em C++, com foco na pesquisa e implementação de uma engine de emulação para PlayStation 3 (PS3) otimizada para Android.
 
 A versão 0.1.8 Alpha representa um dos maiores avanços da arquitetura interna do projeto, adicionando novos componentes do pipeline gráfico RSX, melhorias no sistema de carregamento de firmware e a primeira base do novo sistema de entrada (Input Framework).
 
@@ -140,7 +140,7 @@ Projeto independente focado em pesquisa, arquitetura e desenvolvimento de uma en
 
 ---
 
-Pure3XEngenie
+Pure3XEngine
 
 Version 0.1.8 Alpha
 

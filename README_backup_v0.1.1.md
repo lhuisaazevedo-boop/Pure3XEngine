@@ -1,13 +1,13 @@
-## 🚀 Pure3XEngenie v0.1.1 Alpha ##
+## 🚀 Pure3XEngine v0.1.1 Alpha ##
 
-«⚠️ A Pure3XEngenie encontra-se em fase Alpha.
+«⚠️ A Pure3XEngine encontra-se em fase Alpha.
 Novos recursos, melhorias e otimizações são adicionados continuamente a cada versão.»
 
 ---
 
 ## 📌 Status Atual ##
 
-A Pure3XEngenie é uma engine em desenvolvimento escrita em C++, com arquitetura modular e foco em aprendizado, organização, desempenho e evolução contínua.
+A Pure3XEngine é uma engine em desenvolvimento escrita em C++, com arquitetura modular e foco em aprendizado, organização, desempenho e evolução contínua.
 
 A versão v0.1.1 Alpha representa um grande avanço no projeto, introduzindo o Network System, melhorias no Core Engine, atualização do System Manager, reorganização da estrutura do projeto e uma documentação muito mais completa.
 
@@ -50,7 +50,7 @@ A versão v0.1.1 Alpha representa um grande avanço no projeto, introduzindo o N
 ## 📁 Estrutura do Projeto ##
 
 ```text
-Pure3XEngenie/
+Pure3XEngine/
 ├── Core/
 │   ├── Boot/
 │   ├── Logs/

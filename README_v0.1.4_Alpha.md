@@ -1,8 +1,8 @@
-# Pure3XEngenie v0.1.4 Alpha
+# Pure3XEngine v0.1.4 Alpha
 
 ## Status
 
-Versão Alpha experimental do Pure3XEngenie.
+Versão Alpha experimental do Pure3XEngine.
 
 Esta versão marca a consolidação da estrutura principal da Engine antes da grande atualização v0.1.4 Update.
 
@@ -46,5 +46,5 @@ Esta versão marca a consolidação da estrutura principal da Engine antes da gr
 
 ## Autor: Lhuis ##
 
-Pure3XEngenie
+Pure3XEngine
 Experimental Engine for PlayStation 3 on Android.

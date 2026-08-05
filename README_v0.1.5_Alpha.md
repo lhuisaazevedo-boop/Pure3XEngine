@@ -1,16 +1,16 @@
 <p align="center">
-  <img src="docs/images/Pure3XEngenie-0.1.5-Alpha.png" alt="Pure3XEngenie v0.1.5 Alpha Banner">
+  <img src="docs/images/Pure3XEngine-0.1.5-Alpha.png" alt="Pure3XEngine v0.1.5 Alpha Banner">
 </p>
 
-<h1 align="center">Pure3XEngenie</h1>
+<h1 align="center">Pure3XEngine</h1>
 
 <p align="center">
 Engine Experimental de PlayStation 3 para Android
 </p>
 
 ---
-# 🚀 Pure3XEngenie v0.1.5 Alpha
-«⚠️ O Pure3XEngenie encontra-se em desenvolvimento na fase Alpha.»
+# 🚀 Pure3XEngine v0.1.5 Alpha
+«⚠️ O Pure3XEngine encontra-se em desenvolvimento na fase Alpha.»
 
 A versão v0.1.5 Alpha representa a maior atualização da arquitetura do projeto até o momento, trazendo novos módulos fundamentais para o desenvolvimento futuro da engine.
 
@@ -18,7 +18,7 @@ A versão v0.1.5 Alpha representa a maior atualização da arquitetura do projet
 
 ## 📌 Status Atual ##
 
-O Pure3XEngenie é uma engine experimental de PlayStation 3 desenvolvida totalmente em C++20, com foco em Android.
+O Pure3XEngine é uma engine experimental de PlayStation 3 desenvolvida totalmente em C++20, com foco em Android.
 
 Objetivos atuais:
 
@@ -162,11 +162,11 @@ core/version/
 
 ## 📁 Estrutura do Projeto ##
 ```
-Pure3XEngenie/
+Pure3XEngine/
 ├── Config/
 ├── Docs/
 │   └── images/
-│       └── Pure3XEngenie-0.1.5-Alpha.png
+│       └── Pure3XEngine-0.1.5-Alpha.png
 ├── build/
 ├── core/
 │   ├── boot/
@@ -329,8 +329,8 @@ Você pode estudar, modificar e contribuir com o projeto, respeitando os termos 
 
 ## 📢 Aviso ##
 
-A partir da versão v0.1.5 Alpha, o Pure3XEngenie passará a receber uma atualização oficial por noite.
+A partir da versão v0.1.5 Alpha, o Pure3XEngine passará a receber uma atualização oficial por noite.
 
 Esse novo ciclo permitirá mais tempo para desenvolvimento, testes, correções e estabilidade antes de cada nova versão.
 
-Obrigado por acompanhar o desenvolvimento do Pure3XEngenie! 🚀
+Obrigado por acompanhar o desenvolvimento do Pure3XEngine! 🚀

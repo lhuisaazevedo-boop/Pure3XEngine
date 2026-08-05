@@ -1,4 +1,4 @@
-# Boot Panel - Pure3XEngenie
+# Boot Panel - Pure3XEngine
 
 ## Objetivo
 
@@ -9,7 +9,7 @@ Criar um painel profissional exibido quando o usuário selecionar:
 ## Layout Planejado
 
 ╔══════════════════════════════════════════════╗
-║            Pure3XEngenie v0.1.7 Alpha        ║
+║            Pure3XEngine v0.1.7 Alpha        ║
 ║     Experimental PS3 Engine for Android     ║
 ╠══════════════════════════════════════════════╣
 ║ Core Engine    ✔ Ready                      ║
@@ -45,5 +45,5 @@ Criar um painel profissional exibido quando o usuário selecionar:
 
 ## Status
 
-Planejado para futuras versões do Pure3XEngenie.
+Planejado para futuras versões do Pure3XEngine.
 Será implementado quando os módulos estiverem completos.

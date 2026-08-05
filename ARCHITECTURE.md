@@ -1,8 +1,8 @@
-# 🏗️ Pure3XEngenie - Arquitetura Modular v0.2.4+
+# 🏗️ Pure3XEngine - Arquitetura Modular v0.2.4+
 
 ## 📋 Visão Geral da Arquitetura
 
-Pure3XEngenie segue uma **arquitetura em camadas modular e desacoplada**, permitindo desenvolvimento paralelo e manutenção clara.
+Pure3XEngine segue uma **arquitetura em camadas modular e desacoplada**, permitindo desenvolvimento paralelo e manutenção clara.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -36,7 +36,7 @@ Pure3XEngenie segue uma **arquitetura em camadas modular e desacoplada**, permit
 ## 📁 Estrutura de Diretórios (v0.2.4+)
 
 ```
-Pure3XEngenie/
+Pure3XEngine/
 │
 ├── 📂 app/                              # Android App Module
 │   ├── src/main/java/com/pure3x/       # Java/Kotlin UI Layer

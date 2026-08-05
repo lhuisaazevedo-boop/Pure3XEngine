@@ -1,10 +1,10 @@
-# 🎮 Formatos Suportados - Pure3XEngenie
+# 🎮 Formatos Suportados - Pure3XEngine
 
 ## 🚀 Liberdade Total para Jogar
 
-**Pure3XEngenie** oferece **LIBERDADE TOTAL** para você jogar seus jogos favoritos de PS3 **SEM COMPLICAÇÕES**.
+**Pure3XEngine** oferece **LIBERDADE TOTAL** para você jogar seus jogos favoritos de PS3 **SEM COMPLICAÇÕES**.
 
-Diferente de outros emuladores que exigem preparação de arquivos, o Pure3XEngenie reconhece seus jogos **nativamente** em vários formatos.
+Diferente de outros emuladores que exigem preparação de arquivos, o Pure3XEngine reconhece seus jogos **nativamente** em vários formatos.
 
 ---
 
@@ -22,7 +22,7 @@ Você pode adicionar seus jogos **já compactados** - sem precisar descompactar!
 
 ---
 
-## 🎯 Como Funciona a Liberdade do Pure3XEngenie
+## 🎯 Como Funciona a Liberdade do Pure3XEngine
 
 ### ❌ Outros Emuladores Exigem:
 ```
@@ -34,11 +34,11 @@ Você pode adicionar seus jogos **já compactados** - sem precisar descompactar!
 6. Finalmente jogar ❌
 ```
 
-### ✅ Pure3XEngenie Permite:
+### ✅ Pure3XEngine Permite:
 ```
 1. Baixar jogo em qualquer formato
 2. Colocar na pasta do PS3_Games
-3. Abrir Pure3XEngenie
+3. Abrir Pure3XEngine
 4. Seu jogo já aparece! ✅
 5. Clica e joga!
 ```
@@ -62,9 +62,9 @@ Você pode adicionar seus jogos **já compactados** - sem precisar descompactar!
 
 ---
 
-## 💪 Destaques da Liberdade do Pure3XEngenie
+## 💪 Destaques da Liberdade do Pure3XEngine
 
-| Recurso | Pure3XEngenie | Outros Emuladores |
+| Recurso | Pure3XEngine | Outros Emuladores |
 |---------|---------------|-------------------|
 | **Suporta 7z/ZIP compactado** | ✅ SIM | ❌ NÃO |
 | **Reconhece automaticamente** | ✅ SIM | ⚠️ Manual |
@@ -80,7 +80,7 @@ Você pode adicionar seus jogos **já compactados** - sem precisar descompactar!
 ### Método 1: Arquivo Compactado (Recomendado)
 ```
 1. Coloque Game.7z em /PS3_Games/
-2. Abra Pure3XEngenie
+2. Abra Pure3XEngine
 3. Seu jogo aparece automaticamente
 4. Clica e joga!
 ```
@@ -89,7 +89,7 @@ Você pode adicionar seus jogos **já compactados** - sem precisar descompactar!
 ```
 1. Crie pasta: /PS3_Games/MeuJogo/
 2. Coloque EBOOT.BIN lá
-3. Abra Pure3XEngenie
+3. Abra Pure3XEngine
 4. Seu jogo aparece
 5. Clica e joga!
 ```
@@ -97,7 +97,7 @@ Você pode adicionar seus jogos **já compactados** - sem precisar descompactar!
 ### Método 3: Arquivo ISO
 ```
 1. Coloque Game.iso em /PS3_Games/
-2. Abra Pure3XEngenie
+2. Abra Pure3XEngine
 3. Reconhecido automaticamente
 4. Clica e joga!
 ```
@@ -106,7 +106,7 @@ Você pode adicionar seus jogos **já compactados** - sem precisar descompactar!
 
 ## ⚙️ Configurações de Armazenamento
 
-Pure3XEngenie permite customizar **onde guardar seus jogos**:
+Pure3XEngine permite customizar **onde guardar seus jogos**:
 
 - 📱 Armazenamento interno do dispositivo
 - 💾 Cartão SD externo
@@ -117,7 +117,7 @@ Pure3XEngenie permite customizar **onde guardar seus jogos**:
 
 ## 🔄 Detecção Automática de Jogos
 
-A partir da **v0.2.6 Alpha**, Pure3XEngenie incluirá:
+A partir da **v0.2.6 Alpha**, Pure3XEngine incluirá:
 
 - 🔍 Scanner automático de jogos
 - 📊 Reconhecimento de metadados
@@ -140,7 +140,7 @@ A partir da **v0.2.6 Alpha**, Pure3XEngenie incluirá:
 
 ---
 
-## 🎯 Filosofia do Pure3XEngenie
+## 🎯 Filosofia do Pure3XEngine
 
 > **"Liberdade para jogar seus jogos favoritos de PS3 do seu jeito, sem complicações técnicas."**
 
@@ -160,7 +160,7 @@ Se seu jogo não aparece:
 
 1. Verifique se está em `/PS3_Games/`
 2. Confira se é um formato suportado
-3. Abra uma [Issue no GitHub](https://github.com/lhuisaazevedo-boop/Pure3XEngenie/issues)
+3. Abra uma [Issue no GitHub](https://github.com/lhuisaazevedo-boop/Pure3XEngine/issues)
 4. Nos diga qual formato e qual jogo
 
 ---
@@ -169,12 +169,12 @@ Se seu jogo não aparece:
 
 - 📖 [README Principal](README.md)
 - 📋 [v0.2.5 Changelog](README_v0.2.5_Alpha.md)
-- 🐛 [Reportar Bug](https://github.com/lhuisaazevedo-boop/Pure3XEngenie/issues)
+- 🐛 [Reportar Bug](https://github.com/lhuisaazevedo-boop/Pure3XEngine/issues)
 - 💬 [Discord](https://discord.gg/pure3x) - Em breve
 - 🐦 [Twitter](https://x.com/Pure3X_PS3)
 
 ---
 
-> **Pure3XEngenie** - Emulação PS3 com **LIBERDADE TOTAL**! 🚀
+> **Pure3XEngine** - Emulação PS3 com **LIBERDADE TOTAL**! 🚀
 
 Jogue seus jogos favoritos sem complicações. Sem preparação. Sem descompactação. Só liberdade! 🎮✨

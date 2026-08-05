@@ -45,7 +45,7 @@ RAM Emulada
 
 ---
 
-# Integração com o Pure3XEngenie
+# Integração com o Pure3XEngine
 
 Estrutura planejada:
 

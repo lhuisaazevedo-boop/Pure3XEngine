@@ -1,173 +1,170 @@
-<p align="center">
-  <img src="assets/images/alpha/Pure3XEngenie-0.2.5.png" width="100%">
-</p>
+# Pure3XEngine
 
-<h1 align="center">Pure3XEngenie</h1>
+**Versão:** 0.2.6 Alpha
 
-<p align="center">
-  <b>Experimental PlayStation 3 Emulator Engine for Android</b>
-</p>
+Pure3XEngine é um projeto experimental de emulação e desenvolvimento
+voltado para arquitetura modular, Android, renderização gráfica e
+integração com ambientes de virtualização.
 
-<p align="center">
-  Powered by <b>C++20</b> • Android NDK r29 • OpenGL ES 3.0 • ARM64
-</p>
+> Projeto em estágio Alpha. Recursos e estruturas podem mudar durante
+> o desenvolvimento.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Version-v0.2.5_Alpha-blue">
-  <img src="https://img.shields.io/badge/C++-20-blue">
-  <img src="https://img.shields.io/badge/OpenGL_ES-3.0-orange">
-  <img src="https://img.shields.io/badge/Android-NDK_r29-green">
-  <img src="https://img.shields.io/badge/Architecture-ARM64-black">
-  <img src="https://img.shields.io/badge/Status-Alpha-red">
-</p>
+## Estado atual
 
-<p align="center">
-  <b>🌐 Follow the Development</b>
-</p>
+| Componente | Estado |
+|---|---|
+| CoreEmulator | Disponível |
+| Cubo3D | Disponível |
+| QEMUCenter | Disponível |
+| Android | Disponível |
+| Config | Disponível |
+| Ferramentas P3XE | Disponível |
 
-<p align="center">
-  <a href="https://x.com/Pure3X_PS3">
-    <img src="https://img.shields.io/badge/X-@Pure3X__PS3-000000?logo=x">
-  </a>
+## Arquitetura
 
-  <a href="https://github.com/lhuisaazevedo-boop/Pure3XEngenie">
-    <img src="https://img.shields.io/badge/GitHub-Pure3XEngenie-181717?logo=github">
-  </a>
+### CoreEmulator
 
-  <img src="https://img.shields.io/badge/Website-Coming_Soon-0A84FF">
-  <img src="https://img.shields.io/badge/Discord-Coming_Soon-5865F2">
-</p>
+Núcleo principal do Pure3XEngine.
+
+Responsável pela infraestrutura central utilizada pelo projeto e pela
+evolução dos componentes de emulação.
+
+### Cubo3D
+
+Subsistema gráfico e de renderização.
+
+Estado detectado automaticamente:
+
+- Vulkan: Referências detectadas
+- OpenGL ES: Referências detectadas
+- Shaders encontrados: 2
+
+### QEMUCenter
+
+Centro de integração com QEMU e máquinas virtuais.
+
+Estado:
+
+- QEMUCenter: Disponível
+- QEMU Runtime: Runtime disponível
+
+O QEMUCenter também faz parte da proposta de fornecer comandos e
+operações simplificadas para usuários que não dominam diretamente
+o terminal.
+
+### Android
+
+Camada destinada à integração do Pure3XEngine com Android.
+
+Arquivos detectados:
+
+- Java: 0
+- Kotlin: 0
+
+## P3XE Development Kit
+
+O diretório `tools/` contém ferramentas de desenvolvimento e
+automação do projeto.
+
+Scripts Shell detectados: **141**
+
+O AI Center inclui ferramentas para diagnóstico, correção,
+build, publicação, geração de documentação e análise do projeto.
+
+## Estatísticas do projeto
+
+| Tipo | Quantidade |
+|---|---:|
+| C/C++ | 60 |
+| Headers | 52 |
+| Java | 0 |
+| Kotlin | 0 |
+| Shaders | 2 |
+| CMakeLists.txt | 8 |
+| Scripts Shell | 141 |
+| APK encontrados | 1 |
+| Bibliotecas .so | 26 |
+| Releases | 3 |
+
+## Sistema de Build
+
+O projeto utiliza CMake e Clang para os componentes nativos.
+
+Ambiente detectado durante a geração deste README:
+
+```text
+clang version 21.1.8
+cmake version 4.4.1
+git version 2.55.0
+```
+
+O padrão principal do código nativo é **C++20**.
+
+## Estrutura principal
+
+```text
+Pure3XEngine/
+├── CoreEmulator/
+├── Cubo3D/
+├── QEMUCenter/
+├── Android/
+├── Config/
+├── tools/
+│   ├── ai/
+│   ├── common/
+│   └── emulator/
+├── exports/
+│   ├── apk/
+│   └── releases/
+└── README.md
+```
+
+## Git
+
+Estado no momento da geração:
+
+```text
+Branch: main
+Commit: c323096
+Alterações locais: 665
+```
+
+## Build e desenvolvimento
+
+Antes de compilar, recomenda-se verificar o projeto com as ferramentas
+do P3XE Development Kit.
+
+Exemplo:
+
+```bash
+cd ~/Pure3XEngine
+bash tools/ai/menu.sh
+```
+
+O AI Center centraliza as principais operações de desenvolvimento.
+
+## Status
+
+Pure3XEngine encontra-se atualmente em:
+
+**Development / Alpha**
+
+Versão atual:
+
+**0.2.6 Alpha**
+
+O projeto ainda está em desenvolvimento e não representa uma
+implementação completa de um sistema PlayStation 3.
+
+## Licença
+
+Este projeto utiliza a licença **GNU General Public License v3.0
+(GPL-3.0)**.
+
+Consulte o arquivo `LICENSE` do repositório para os termos completos.
 
 ---
 
-# 🚀 Sobre o Projeto
+README gerado automaticamente pelo **P3XE Intelligent README Generator**.
 
-O **Pure3XEngenie** é um projeto experimental de emulação de PlayStation 3 desenvolvido para Android.
-
-O objetivo é construir uma engine moderna utilizando **C++20**, **Android NDK r29**, **OpenGL ES 3.0** e arquitetura modular, preparada para evoluir até uma emulação nativa de alto desempenho em dispositivos ARM64.
-
-A versão **v0.2.5 Alpha** marca um importante avanço na infraestrutura do aplicativo Android, adicionando gerenciamento inicial de firmware PS3, melhorias na interface e uma base mais sólida para as próximas versões.
-
----
-
-# 🔹 v0.2.5 Alpha
-
-## 🎯 Principais novidades
-
-- ✅ APK Android atualizado.
-- ✅ Dashboard reformulado.
-- ✅ Biblioteca de Jogos aprimorada.
-- ✅ FirmwareManager utilizando DocumentFile.
-- ✅ Seleção de firmware através do Storage Access Framework.
-- ✅ Detecção inicial do arquivo PS3UPDAT.PUP.
-- ✅ Correções no MainActivity.
-- ✅ Melhor organização do código Java.
-- ✅ Melhorias de estabilidade.
-- ✅ Build Android otimizada.
-- ✅ Base preparada para futuras melhorias da XMB.
-
----
-
-# 🛣️ Roadmap de Desenvolvimento
-
-## 🔹 v0.2.6 Alpha
-
-- Separação completa entre Firmware PS3 e Biblioteca de Jogos.
-- Reconhecimento permanente do firmware.
-- Primeira versão da XMB.
-- Melhorias no Dashboard.
-- Correções gerais do APK.
-
-## 🔹 v0.2.7 Alpha
-
-- Scanner automático de jogos.
-- Organização da biblioteca.
-- Leitura inicial dos metadados dos jogos.
-- Melhor gerenciamento de armazenamento.
-
-## 🔹 v0.2.8 Alpha
-
-- Interface inspirada na XMB.
-- Configurações gráficas.
-- Informações reais de CPU, RAM, GPU e Vulkan.
-- Melhorias de desempenho.
-
-## 🔹 v0.2.9 Alpha
-
-- Preparação do núcleo de emulação.
-- Integração Java + C++.
-- Melhorias na arquitetura da Engine.
-- Base final antes da Beta.
-
-## 🔹 v0.3.0 Beta
-
-- Site oficial do Pure3XEngenie.
-- Documentação completa.
-- Wiki oficial.
-- Changelog online.
-- Identidade visual definitiva.
-
-## 🔹 v0.3.1 Beta
-
-- Primeira distribuição pública do APK Beta.
-- Expansão dos testes em dispositivos Android.
-- Coleta de feedback da comunidade.
-
-## 🔹 v0.3.2 Beta
-
-- Lançamento do servidor oficial no Discord.
-- Organização da comunidade.
-- Canal de suporte.
-- Divulgação das próximas versões.
-
----
-
-> **Pure3XEngenie é um projeto independente em desenvolvimento contínuo. Cada versão Alpha aproxima o projeto de uma futura Beta pública e de uma engine de emulação PS3 totalmente desenvolvida para Android.**
-
-# 🔗 Links do Projeto
-
-🌐 **Site Oficial:** Em breve
-
-💬 **Discord Oficial:** Em breve
-
-🐦 **X (Twitter):** https://x.com/Pure3X_PS3
-
-💻 **GitHub:** https://github.com/lhuisaazevedo-boop/Pure3XEngenie
-
----
-
-# 📢 Aviso
-
-O **Pure3XEngenie** é um projeto experimental de pesquisa e desenvolvimento voltado para a emulação de PlayStation 3 no Android.
-
-Atualmente o projeto encontra-se em fase **Alpha**. Diversas funcionalidades ainda estão em desenvolvimento e podem sofrer alterações conforme a evolução da Engine.
-
-O desenvolvimento prioriza desempenho, estabilidade, arquitetura modular e compatibilidade com dispositivos Android modernos, utilizando **C++20**, **Android NDK r29** e **OpenGL ES 3.0**.
-
----
-
-# 🤝 Contribuindo
-
-Sugestões, correções e melhorias são sempre bem-vindas.
-
-Caso encontre algum problema, abra uma **Issue** no GitHub ou acompanhe as novidades pelos canais oficiais do projeto.
-
-Toda contribuição ajuda na evolução do **Pure3XEngenie**.
-
----
-
-# 📄 Licença
-
-Este projeto está licenciado sob a **MIT License**.
-
-Consulte o arquivo **LICENSE** para mais informações.
-
-# ⚠️ Aviso Legal
-
-O **Pure3XEngenie** é um projeto independente, experimental e de código aberto voltado para pesquisa e desenvolvimento na área de emulação.
-
-Este projeto **não possui qualquer vínculo, afiliação, autorização ou parceria com a Sony Interactive Entertainment, PlayStation® ou qualquer empresa do grupo Sony**.
-
-"PlayStation" e "PS3" são marcas registradas de seus respectivos proprietários e são mencionadas apenas para fins de compatibilidade e identificação da plataforma alvo.
-
-Os usuários são responsáveis por utilizar apenas firmware, jogos e demais conteúdos obtidos de forma legal e em conformidade com a legislação aplicável.
+Última geração: 04/08/2026 22:30:21

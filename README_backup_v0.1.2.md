@@ -1,13 +1,13 @@
-## 🚀 Pure3XEngenie v0.1.2 Alpha ##
+## 🚀 Pure3XEngine v0.1.2 Alpha ##
 
-> ⚠️ O Pure3XEngenie encontra-se em fase **Alpha**.
+> ⚠️ O Pure3XEngine encontra-se em fase **Alpha**.
 > Novos recursos, melhorias e otimizações são adicionados a cada versão.
 
 ---
 
 ## 📌 Status Atual ##
 
-O **Pure3XEngenie** é uma engine em desenvolvimento, escrita em **C++**, com arquitetura modular e foco em pesquisa, desempenho e expansão futura.
+O **Pure3XEngine** é uma engine em desenvolvimento, escrita em **C++**, com arquitetura modular e foco em pesquisa, desempenho e expansão futura.
 
 A versão **v0.1.2 Alpha** consolida a base do projeto com novos módulos, melhorias estruturais e uma organização mais sólida do código.
 
@@ -66,7 +66,7 @@ A versão **v0.1.2 Alpha** consolida a base do projeto com novos módulos, melho
 ## 📁 Estrutura do Projeto ##
 
 ```text
-Pure3XEngenie/
+Pure3XEngine/
 ├── Config/
 │   ├── ConfigManager.h
 │   ├── ConfigManager.cpp

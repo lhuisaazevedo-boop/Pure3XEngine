@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Documentação da arquitetura de execução do processador Cell Broadband Engine (PS3), utilizada como referência para o desenvolvimento do Pure3XEngenie.
+Documentação da arquitetura de execução do processador Cell Broadband Engine (PS3), utilizada como referência para o desenvolvimento do Pure3XEngine.
 
 ---
 
@@ -96,6 +96,6 @@ Cada SPE executa uma função específica:
 
 # Status
 
-**Planejado para futuras versões do Pure3XEngenie (v0.1.6+).**
+**Planejado para futuras versões do Pure3XEngine (v0.1.6+).**
 
 Este documento serve como referência técnica para a implementação nativa da arquitetura do PlayStation 3 no Android.

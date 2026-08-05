@@ -1,12 +1,12 @@
-# Pure3XEngenie v0.1.6 Alpha
+# Pure3XEngine v0.1.6 Alpha
 
 ## Backup da Documentação
 
-Este arquivo representa o backup oficial da documentação da versão **v0.1.6 Alpha** do Pure3XEngenie.
+Este arquivo representa o backup oficial da documentação da versão **v0.1.6 Alpha** do Pure3XEngine.
 
 ### Informações da Versão
 
-- Engine: Pure3XEngenie
+- Engine: Pure3XEngine
 - Versão: v0.1.6 Alpha
 - Build: 001
 - Desenvolvedor: LhuisDev

@@ -30,7 +30,7 @@ public class AboutActivity extends Activity {
                 "Engine: C++20\n" +
                 "Plataforma: Android\n" +
                 "Desenvolvedor: Pure3XDev\n\n" +
-                "Pure3XEngenie é um projeto independente " +
+                "Pure3XEngine é um projeto independente " +
                 "desenvolvido do zero para Android.\n\n" +
                 "Este projeto não possui qualquer afiliação, " +
                 "aprovação ou parceria com a Sony Interactive " +

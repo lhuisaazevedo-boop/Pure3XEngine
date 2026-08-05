@@ -12,7 +12,7 @@ using namespace Pure3X;
 int main()
 {
     std::cout << "=====================================\n";
-    std::cout << "      Pure3XEngenie v0.2.4 Alpha\n";
+    std::cout << "      Pure3XEngine v0.2.4 Alpha\n";
     std::cout << "=====================================\n\n";
 
     if (!AndroidCore::Initialize())
@@ -54,7 +54,7 @@ int main()
     AndroidRuntime::Shutdown();
     AndroidCore::Shutdown();
 
-    std::cout << "\n[Pure3XEngenie] Encerrada com sucesso.\n";
+    std::cout << "\n[Pure3XEngine] Encerrada com sucesso.\n";
 
     return 0;
 }

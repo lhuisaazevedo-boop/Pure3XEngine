@@ -1,135 +1,86 @@
 cmake_minimum_required(VERSION 3.22.1)
 
-project(
-    Cubo3D
-    VERSION 0.1.0
-    LANGUAGES C CXX
-)
+project(Cubo3D LANGUAGES CXX)
 
 # ============================================================
-# C++ Configuration
+# C++ CONFIGURATION
 # ============================================================
-
-set(CMAKE_C_STANDARD 17)
-set(CMAKE_C_STANDARD_REQUIRED ON)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # ============================================================
-# Android Defaults
+# FONTES DO CUBO3D
 # ============================================================
 
-if(ANDROID)
+file(GLOB_RECURSE CUBO3D_SOURCES
+    CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+)
 
-    if(NOT ANDROID_ABI)
-        set(ANDROID_ABI arm64-v8a)
-    endif()
-
-    if(NOT ANDROID_PLATFORM)
-        set(ANDROID_PLATFORM android-29)
-    endif()
-
+if(NOT CUBO3D_SOURCES)
+    message(FATAL_ERROR
+        "Nenhum arquivo .cpp encontrado em Cubo3D/src"
+    )
 endif()
 
 # ============================================================
-# Cubo3D Library
+# BIBLIOTECA NATIVA
 # ============================================================
 
-add_library(Cubo3D SHARED)
-
-target_sources(Cubo3D PRIVATE
-
-    src/main.cpp
-    src/Engine.cpp
-    src/Renderer.cpp
-    src/Camera.cpp
-    src/Cube.cpp
-    src/Mesh.cpp
-    src/Shader.cpp
-    src/Texture.cpp
-    src/Material.cpp
-    src/Transform.cpp
-    src/Scene.cpp
-    src/ResourceManager.cpp
-    src/FPSCounter.cpp
-    src/Logger.cpp
-
-    src/Graphics/GraphicsManager.cpp
-    src/Graphics/OpenGLESManager.cpp
-    src/Graphics/VulkanManager.cpp
-    src/Graphics/CubeRenderer.cpp
-
-)
-
-target_include_directories(Cubo3D PRIVATE
-
-    include
-    src
-    src/Graphics
-
+add_library(cubo3d SHARED
+    src/Android/AndroidBridge.cpp
+    ${CUBO3D_SOURCES}
 )
 
 # ============================================================
-# Compile Options
+# HEADERS
 # ============================================================
 
-target_compile_options(Cubo3D PRIVATE
-
-    -Wall
-    -Wextra
-    -O2
-
+target_include_directories(cubo3d PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/src"
+    "${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
 # ============================================================
-# Threads
-# ============================================================
-
-find_package(Threads REQUIRED)
-
-target_link_libraries(Cubo3D PRIVATE
-    Threads::Threads
-)
-
-# ============================================================
-# Android Libraries
+# BIBLIOTECAS DO ANDROID NDK
 # ============================================================
 
 if(ANDROID)
 
-    find_library(LOG_LIB log)
     find_library(ANDROID_LIB android)
+    find_library(LOG_LIB log)
     find_library(EGL_LIB EGL)
     find_library(GLES3_LIB GLESv3)
+    find_library(JNIGRAPHICS_LIB jnigraphics)
+    find_library(VULKAN_LIB vulkan)
 
-    target_link_libraries(Cubo3D PRIVATE
-
-        ${LOG_LIB}
+    target_link_libraries(cubo3d PRIVATE
         ${ANDROID_LIB}
+        ${LOG_LIB}
         ${EGL_LIB}
         ${GLES3_LIB}
-
+        ${JNIGRAPHICS_LIB}
+        ${VULKAN_LIB}
     )
 
 endif()
 
 # ============================================================
-# Build Information
+# DEFINIÇÕES DO CUBO3D
 # ============================================================
 
-message(STATUS "")
-message(STATUS "========================================")
-message(STATUS "          Cubo3D Engine")
-message(STATUS "========================================")
-message(STATUS "Version      : ${PROJECT_VERSION}")
-message(STATUS "Platform     : ${CMAKE_SYSTEM_NAME}")
-message(STATUS "ABI          : ${ANDROID_ABI}")
-message(STATUS "API Level    : ${ANDROID_PLATFORM}")
-message(STATUS "Compiler     : ${CMAKE_CXX_COMPILER}")
-message(STATUS "Output       : libCubo3D.so")
-message(STATUS "========================================")
-message(STATUS "")
+target_compile_definitions(cubo3d PRIVATE
+    PURE3X_ENGINE
+    PURE3X_ANDROID
+)
+
+# ============================================================
+# NOME DA BIBLIOTECA
+# ============================================================
+
+set_target_properties(cubo3d PROPERTIES
+    OUTPUT_NAME "cubo3d"
+)

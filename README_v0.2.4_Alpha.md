@@ -1,6 +1,6 @@
 # 🚀 Próximas Atualizações
 
-O desenvolvimento do **Pure3XEngenie** continuará evoluindo em etapas, com foco em estabilidade, desempenho e novos recursos para Android.
+O desenvolvimento do **Pure3XEngine** continuará evoluindo em etapas, com foco em estabilidade, desempenho e novos recursos para Android.
 
 ## 🔹 v0.2.5 Alpha
 
@@ -30,4 +30,4 @@ O desenvolvimento do **Pure3XEngenie** continuará evoluindo em etapas, com foco
 
 ---
 
-> **Atenção:** Todas as funcionalidades listadas acima representam o planejamento atual do projeto e podem ser ajustadas conforme o desenvolvimento do Pure3XEngenie evoluir.
+> **Atenção:** Todas as funcionalidades listadas acima representam o planejamento atual do projeto e podem ser ajustadas conforme o desenvolvimento do Pure3XEngine evoluir.

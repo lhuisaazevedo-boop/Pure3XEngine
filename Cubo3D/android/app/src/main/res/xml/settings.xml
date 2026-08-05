@@ -37,7 +37,7 @@
 
         <Preference
             android:key="about"
-            android:title="Sobre o Pure3XEngenie"
+            android:title="Sobre o Pure3XEngine"
             android:summary="Motor gráfico e núcleo desenvolvidos do zero para Android" />
     </PreferenceCategory>
 

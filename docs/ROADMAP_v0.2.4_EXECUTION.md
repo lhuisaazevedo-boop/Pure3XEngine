@@ -1,4 +1,4 @@
-# 🎯 Pure3XEngenie v0.2.4 - Execution Roadmap
+# 🎯 Pure3XEngine v0.2.4 - Execution Roadmap
 ## "Get First Game Running" Sprint
 
 ---

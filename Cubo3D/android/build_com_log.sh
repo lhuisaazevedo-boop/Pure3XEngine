@@ -6,7 +6,7 @@ mkdir -p logs
 LOG_FILE="logs/build_$(date +%Y%m%d_%H%M%S).log"
 
 echo "======================================"
-echo " Pure3XEngenie Build Analyzer"
+echo " Pure3XEngine Build Analyzer"
 echo "======================================"
 
 ./gradlew clean assembleDebug --stacktrace --info 2>&1 | tee "$LOG_FILE"

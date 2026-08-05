@@ -1,6 +1,6 @@
-## 🚀 Pure3XEngenie v0.1.4 Alpha ##
+## 🚀 Pure3XEngine v0.1.4 Alpha ##
 
-«⚠️ O Pure3XEngenie encontra-se em desenvolvimento na fase Alpha.
+«⚠️ O Pure3XEngine encontra-se em desenvolvimento na fase Alpha.
 
 Novos recursos, melhorias, correções e otimizações são adicionados continuamente a cada atualização.»
 
@@ -8,7 +8,7 @@ Novos recursos, melhorias, correções e otimizações são adicionados continua
 
 ## 📌 Status Atual ##
 
-O Pure3XEngenie é uma engine experimental desenvolvida em C++, focada em pesquisa, arquitetura modular e estudos relacionados à emulação e execução de sistemas complexos.
+O Pure3XEngine é uma engine experimental desenvolvida em C++, focada em pesquisa, arquitetura modular e estudos relacionados à emulação e execução de sistemas complexos.
 
 A versão v0.1.4 Alpha representa uma evolução importante da estrutura interna da engine, introduzindo um sistema centralizado de informações de versão através do Version Core, tornando futuras atualizações muito mais simples e organizadas.
 
@@ -16,7 +16,7 @@ A versão v0.1.4 Alpha representa uma evolução importante da estrutura interna
 
 ## ⚠️ Suporte ao Android ##
 
-O Pure3XEngenie iniciou oficialmente a preparação para oferecer suporte ao Android.
+O Pure3XEngine iniciou oficialmente a preparação para oferecer suporte ao Android.
 
 O ambiente de desenvolvimento já possui uma base funcional utilizando Termux, CMake e Android NDK.
 
@@ -35,7 +35,7 @@ Status: 🚧 Experimental
 - Barra de carregamento
 - Sequência de Boot
 - Sistema de Logs
-- Tela "Pure3XEngenie Ready"
+- Tela "Pure3XEngine Ready"
 
 ## 🧠 Core ##
 
@@ -103,7 +103,7 @@ Isso elimina a necessidade de alterar diversos arquivos sempre que uma nova vers
 
 ## 📁 Estrutura do Projeto ##
 ```md
-Pure3XEngenie/
+Pure3XEngine/
 ├── Config/
 ├── Core/
 │   ├── Boot/
@@ -202,4 +202,4 @@ Distribuído sob a MIT License.
 
 Você pode estudar, modificar e contribuir com o projeto, respeitando os termos da licença e mantendo os créditos do autor original.
 
-O Pure3XEngenie continuará recebendo atualizações frequentes. As versões oficiais serão sempre publicadas neste repositório.
+O Pure3XEngine continuará recebendo atualizações frequentes. As versões oficiais serão sempre publicadas neste repositório.

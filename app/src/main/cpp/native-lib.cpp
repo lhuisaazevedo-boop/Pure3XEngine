@@ -3,7 +3,7 @@
 
 #include "Engine.h"
 
-#define TAG "Pure3XEngenie"
+#define TAG "Pure3XEngine"
 
 extern "C" {
 
@@ -13,7 +13,7 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void*) {
     __android_log_print(
         ANDROID_LOG_INFO,
         TAG,
-        "Pure3XEngenie v0.2.3 Alpha carregada!"
+        "Pure3XEngine v0.2.3 Alpha carregada!"
     );
 
     return JNI_VERSION_1_6;
@@ -36,7 +36,7 @@ Java_com_pure3x_engenie_MainActivity_initEngine(
         __android_log_print(
             ANDROID_LOG_INFO,
             TAG,
-            "Pure3XEngenie inicializada com sucesso!"
+            "Pure3XEngine inicializada com sucesso!"
         );
     }
     else
@@ -44,7 +44,7 @@ Java_com_pure3x_engenie_MainActivity_initEngine(
         __android_log_print(
             ANDROID_LOG_ERROR,
             TAG,
-            "Falha ao inicializar Pure3XEngenie!"
+            "Falha ao inicializar Pure3XEngine!"
         );
     }
 }

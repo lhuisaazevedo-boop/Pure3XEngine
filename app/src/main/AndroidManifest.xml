@@ -7,9 +7,9 @@
         android:required="false" />
 
     <application
-        android:label="Pure3XEngenie"
+        android:label="Pure3XEngine"
         android:icon="@mipmap/ic_launcher"
-        android:theme="@style/Theme.Pure3XEngenie"
+        android:theme="@style/Theme.Pure3XEngine"
         android:hasCode="true"
         android:extractNativeLibs="true">
 

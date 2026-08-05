@@ -15,6 +15,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Pure3XEngenie"
+rootProject.name = "Pure3XEngine"
 
 include(":app")

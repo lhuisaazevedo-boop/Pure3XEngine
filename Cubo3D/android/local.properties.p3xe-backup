@@ -1,0 +1,2 @@
+sdk.dir=/data/data/com.termux/files/home/Android/Sdk
+cmake.dir=/data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1

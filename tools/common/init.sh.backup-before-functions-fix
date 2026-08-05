@@ -1,0 +1,31 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+cabecalho() {
+    clear
+    echo "=============================================================="
+    echo "🎮 PAINEL DE CONTROLE P3XE"
+    echo "Pure3XEngine 0.2.6 Alpha"
+    echo "=============================================================="
+    echo
+    echo "📅 Data: $(date +%d/%m/%Y)"
+    echo "🕒 Hora: $(date +%H:%M:%S)"
+    echo "📂 Projeto: $HOME/Pure3XEngine"
+    echo
+}
+
+sucesso() {
+    echo "✔ $1"
+}
+
+erro() {
+    echo "✘ $1"
+}
+
+aviso() {
+    echo "⚠ $1"
+}
+
+pausa() {
+    echo
+    read -p "Pressione ENTER para continuar..."
+}

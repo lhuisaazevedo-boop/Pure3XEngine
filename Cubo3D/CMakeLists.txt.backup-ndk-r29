@@ -1,0 +1,48 @@
+cmake_minimum_required(VERSION 3.22.1)
+project(Cubo3D LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+# ============================================================
+# BIBLIOTECA GRÁFICA
+# ============================================================
+add_library(cubo3d SHARED)
+
+# ============================================================
+# FONTES DO MOTOR GRÁFICO (A solução inteligente: Busca Automática!)
+# ============================================================
+file(GLOB_RECURSE FONTES_CUBO3D "src/*.cpp")
+target_sources(cubo3d PRIVATE ${FONTES_CUBO3D})
+
+# ============================================================
+# DIRETÓRIOS DE CABEÇALHOS
+# ============================================================
+target_include_directories(cubo3d PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+# ============================================================
+# BIBLIOTECAS DO ANDROID
+# ============================================================
+link_directories(/system/lib64)
+target_link_libraries(cubo3d PRIVATE
+    libEGL.so
+    libGLESv3.so
+    libjnigraphics.so
+    libvulkan.so
+)
+
+# ============================================================
+# DEFINIÇÕES E PROPRIEDADES
+# ============================================================
+target_compile_definitions(cubo3d PRIVATE
+    PURE3X_ENGINE
+    PURE3X_ANDROID
+)
+
+set_target_properties(cubo3d PROPERTIES
+    OUTPUT_NAME "cubo3d"
+)

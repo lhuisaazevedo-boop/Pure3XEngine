@@ -206,4 +206,4 @@ Status: Atualização contínua
 
 # 📌 Observações
 
-Este roadmap será atualizado a cada nova versão Alpha, Beta e Release do Pure3XEngenie. Novos módulos poderão ser adicionados conforme a evolução do projeto.
+Este roadmap será atualizado a cada nova versão Alpha, Beta e Release do Pure3XEngine. Novos módulos poderão ser adicionados conforme a evolução do projeto.

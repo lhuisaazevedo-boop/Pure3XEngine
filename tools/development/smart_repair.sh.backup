@@ -1,0 +1,706 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+clear
+
+############################################
+# P3XE SMART REPAIR
+############################################
+
+PROJETO_ROOT="/data/data/com.termux/files/home/Pure3XEngine"
+
+TOOLS="$PROJETO_ROOT/tools"
+
+SDK_PATH="$HOME/Android/Sdk"
+
+NDK_PATH=$(find "$SDK_PATH/ndk" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | head -n1)
+
+CMAKE_PATH=$(find "$SDK_PATH/cmake" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | head -n1)
+
+############################################
+# CORES
+############################################
+
+VERDE="\033[1;32m"
+VERMELHO="\033[1;31m"
+AMARELO="\033[1;33m"
+AZUL="\033[1;34m"
+CIANO="\033[1;36m"
+RESET="\033[0m"
+
+############################################
+# CONTADORES
+############################################
+
+OK=0
+ERRO=0
+AVISO=0
+
+OKS=()
+ERROS=()
+AVISOS=()
+
+############################################
+
+pausa() {
+    echo
+    read -p "Pressione ENTER para continuar..."
+}
+
+############################################
+
+ok(){
+
+echo -e "${VERDE}✔${RESET} $1"
+
+OK=$((OK+1))
+
+OKS+=("$1")
+
+}
+
+############################################
+
+erro(){
+
+echo -e "${VERMELHO}✘${RESET} $1"
+
+ERRO=$((ERRO+1))
+
+ERROS+=("$1")
+
+}
+
+############################################
+
+aviso(){
+
+echo -e "${AMARELO}⚠${RESET} $1"
+
+AVISO=$((AVISO+1))
+
+AVISOS+=("$1")
+
+}
+
+############################################
+
+titulo(){
+
+echo
+
+echo -e "${AZUL}==========================================${RESET}"
+
+echo -e "${CIANO}$1${RESET}"
+
+echo -e "${AZUL}==========================================${RESET}"
+
+echo
+
+}
+
+############################################
+# FUNÇÕES DE VERIFICAÇÃO
+############################################
+
+existe() {
+
+    [ -e "$1" ]
+
+}
+
+executavel() {
+
+    [ -x "$1" ]
+
+}
+
+############################################
+# CORRIGIR PERMISSÕES
+############################################
+
+corrigir_permissoes() {
+
+titulo "🔧 CORRIGINDO PERMISSÕES"
+
+ARQUIVOS=(
+"$PROJETO_ROOT/P3XE.sh"
+"$TOOLS/doctor.sh"
+"$TOOLS/repair.sh"
+"$TOOLS/build.sh"
+"$TOOLS/build_completo.sh"
+"$TOOLS/build_com_log.sh"
+"$TOOLS/cmake_doctor.sh"
+"$TOOLS/gradle_doctor.sh"
+"$TOOLS/ndk_doctor.sh"
+"$TOOLS/jni_doctor.sh"
+"$TOOLS/report.sh"
+"$TOOLS/relatorio_inteligente.sh"
+"$TOOLS/logs_manager.sh"
+)
+
+for ARQ in "${ARQUIVOS[@]}"
+do
+
+    if existe "$ARQ"; then
+
+        chmod +x "$ARQ"
+
+        ok "$(basename "$ARQ")"
+
+    else
+
+        aviso "$(basename "$ARQ") não encontrado"
+
+    fi
+
+done
+
+echo
+
+echo "Verificando Gradle Wrapper..."
+
+for MODULO in Cubo3D CoreEmulator
+do
+
+WRAPPER="$PROJETO_ROOT/$MODULO/android/gradlew"
+
+if existe "$WRAPPER"; then
+
+chmod +x "$WRAPPER"
+
+ok "$MODULO gradlew"
+
+else
+
+aviso "$MODULO gradlew inexistente"
+
+fi
+
+done
+
+}
+############################################
+# VERIFICAÇÃO DO SDK
+############################################
+
+verificar_sdk(){
+
+titulo "📦 VERIFICANDO SDK"
+
+if existe "$SDK_PATH"; then
+
+ok "SDK encontrado"
+
+echo "$SDK_PATH"
+
+else
+
+erro "SDK não encontrado"
+
+fi
+
+echo
+
+if existe "$NDK_PATH"; then
+
+ok "NDK encontrado"
+
+echo "$NDK_PATH"
+
+else
+
+erro "NDK não encontrado"
+
+fi
+
+echo
+
+if existe "$CMAKE_PATH"; then
+
+ok "CMake encontrado"
+
+echo "$CMAKE_PATH"
+
+else
+
+erro "CMake não encontrado"
+
+fi
+
+}
+############################################
+# LIMPEZA INTELIGENTE
+############################################
+
+limpar_caches() {
+
+titulo "🧹 LIMPEZA INTELIGENTE"
+
+MODULOS=(
+"Cubo3D"
+"CoreEmulator"
+)
+
+for MODULO in "${MODULOS[@]}"
+do
+
+    ANDROID="$PROJETO_ROOT/$MODULO/android"
+
+    if ! existe "$ANDROID"; then
+
+        aviso "$MODULO não encontrado"
+
+        continue
+
+    fi
+
+    echo
+    echo "Projeto: $MODULO"
+
+    PASTAS=(
+    ".gradle"
+    ".cxx"
+    "build"
+    "app/build"
+    "logs"
+    )
+
+    for PASTA in "${PASTAS[@]}"
+    do
+
+        DIR="$ANDROID/$PASTA"
+
+        if existe "$DIR"; then
+
+            rm -rf "$DIR"
+
+            ok "$PASTA removida"
+
+        else
+
+            aviso "$PASTA inexistente"
+
+        fi
+
+    done
+
+done
+
+echo
+echo "Limpando cache global do Gradle..."
+
+if [ -d "$HOME/.gradle/caches" ]; then
+
+    rm -rf "$HOME/.gradle/caches/build-cache-"*
+
+    ok "Cache Gradle"
+
+else
+
+    aviso "Cache Gradle inexistente"
+
+fi
+
+echo
+echo "Limpando APKs temporários..."
+
+find "$PROJETO_ROOT" \
+-name "*.apk" \
+-path "*/build/*" \
+-delete 2>/dev/null
+
+find "$PROJETO_ROOT" \
+-name "*.idsig" \
+-delete 2>/dev/null
+
+ok "Arquivos temporários removidos"
+
+echo
+echo "Limpando diretórios vazios..."
+
+find "$PROJETO_ROOT" \
+-type d \
+-empty \
+-delete 2>/dev/null
+
+ok "Diretórios vazios removidos"
+
+}
+############################################
+# RESET DOS CONTADORES
+############################################
+
+reset_status(){
+
+OK=0
+ERRO=0
+AVISO=0
+
+OKS=()
+ERROS=()
+AVISOS=()
+
+}
+
+############################################
+# RECRIAR LOCAL.PROPERTIES
+############################################
+
+recriar_localprops() {
+
+titulo "📄 RECRIANDO LOCAL.PROPERTIES"
+
+MODULOS=(
+"Cubo3D"
+"CoreEmulator"
+)
+
+for MODULO in "${MODULOS[@]}"
+do
+
+ANDROID="$PROJETO_ROOT/$MODULO/android"
+
+if ! existe "$ANDROID"; then
+
+    aviso "$MODULO não encontrado"
+
+    continue
+
+fi
+
+PROP="$ANDROID/local.properties"
+
+cat > "$PROP" << EOF
+## Gerado automaticamente pelo Smart Repair
+
+sdk.dir=$SDK_PATH
+ndk.dir=$NDK_PATH
+cmake.dir=$CMAKE_PATH
+EOF
+
+if existe "$PROP"; then
+
+    ok "$MODULO local.properties criado"
+
+else
+
+    erro "$MODULO falha ao criar local.properties"
+
+fi
+
+done
+
+}
+
+############################################
+# ATUALIZAR GRADLE WRAPPER
+############################################
+
+recriar_gradle() {
+
+titulo "🔄 VERIFICANDO GRADLE"
+
+MODULOS=(
+"Cubo3D"
+"CoreEmulator"
+)
+
+for MODULO in "${MODULOS[@]}"
+do
+
+ANDROID="$PROJETO_ROOT/$MODULO/android"
+
+if ! existe "$ANDROID"; then
+
+    aviso "$MODULO inexistente"
+
+    continue
+
+fi
+
+WRAPPER="$ANDROID/gradlew"
+
+if ! existe "$WRAPPER"; then
+
+    aviso "$MODULO gradlew inexistente"
+
+    continue
+
+fi
+
+chmod +x "$WRAPPER"
+
+cd "$ANDROID" || continue
+
+echo
+echo "Atualizando Gradle de $MODULO..."
+
+./gradlew --version >/dev/null 2>&1
+
+if [ $? -eq 0 ]; then
+
+    ok "$MODULO Gradle funcionando"
+
+else
+
+    erro "$MODULO Gradle apresentou erro"
+
+fi
+
+done
+
+}
+
+############################################
+# RESUMO DO REPARO
+############################################
+
+mostrar_resumo(){
+
+titulo "📊 RESUMO DO SMART REPAIR"
+
+echo
+
+echo -e "${VERDE}✔ Corrigidos:${RESET} $OK"
+
+echo -e "${AMARELO}⚠ Avisos:${RESET} $AVISO"
+
+echo -e "${VERMELHO}✘ Erros:${RESET} $ERRO"
+
+echo
+
+if [ ${#OKS[@]} -gt 0 ]; then
+
+echo "Itens corrigidos:"
+
+for ITEM in "${OKS[@]}"
+do
+echo "  ✔ $ITEM"
+done
+
+echo
+
+fi
+
+if [ ${#AVISOS[@]} -gt 0 ]; then
+
+echo "Avisos:"
+
+for ITEM in "${AVISOS[@]}"
+do
+echo "  ⚠ $ITEM"
+done
+
+echo
+
+fi
+
+if [ ${#ERROS[@]} -gt 0 ]; then
+
+echo "Erros encontrados:"
+
+for ITEM in "${ERROS[@]}"
+do
+echo "  ✘ $ITEM"
+done
+
+echo
+
+fi
+
+echo "Próximo passo recomendado:"
+
+echo "1. Executar Doctor"
+
+echo "2. Executar CMake Doctor"
+
+echo "3. Executar Build"
+
+echo
+
+}
+
+############################################
+# REPARO COMPLETO
+############################################
+
+reparo_completo() {
+
+reset_status
+
+titulo "🚀 REPARO COMPLETO"
+
+corrigir_permissoes
+
+echo
+
+verificar_sdk
+
+echo
+
+limpar_caches
+
+echo
+
+recriar_localprops
+
+echo
+
+recriar_gradle
+
+echo
+
+mostrar_resumo
+
+echo
+
+if [ "$ERRO" -eq 0 ]; then
+
+echo -e "${VERDE}"
+echo "=========================================="
+echo "        SMART REPAIR CONCLUÍDO"
+echo "=========================================="
+echo -e "${RESET}"
+
+echo "Projeto pronto para novo diagnóstico."
+
+else
+
+echo -e "${AMARELO}"
+echo "=========================================="
+echo " SMART REPAIR FINALIZADO COM AVISOS"
+echo "=========================================="
+echo -e "${RESET}"
+
+echo "Verifique os erros acima antes da compilação."
+
+fi
+
+}
+
+############################################
+# MENU
+############################################
+
+while true
+do
+
+clear
+
+echo -e "${AZUL}"
+echo "=================================================="
+echo "             🧠 P3XE SMART REPAIR"
+echo "=================================================="
+echo -e "${RESET}"
+
+echo
+
+echo " 1) Corrigir permissões"
+
+echo " 2) Verificar SDK"
+
+echo " 3) Limpar caches"
+
+echo " 4) Recriar local.properties"
+
+echo " 5) Verificar Gradle"
+
+echo " 6) Reparo Completo"
+
+echo
+
+echo " 0) Voltar"
+
+echo
+
+read -p "Escolha: " OP
+
+case "$OP" in
+
+1)
+
+reset_status
+
+corrigir_permissoes
+
+mostrar_resumo
+
+pausa
+
+;;
+
+2)
+
+reset_status
+
+verificar_sdk
+
+mostrar_resumo
+
+pausa
+
+;;
+
+3)
+
+reset_status
+
+limpar_caches
+
+mostrar_resumo
+
+pausa
+
+;;
+
+4)
+
+reset_status
+
+recriar_localprops
+
+mostrar_resumo
+
+pausa
+
+;;
+
+5)
+
+reset_status
+
+recriar_gradle
+
+mostrar_resumo
+
+pausa
+
+;;
+
+6)
+
+reparo_completo
+
+pausa
+
+;;
+
+0)
+
+exit 0
+
+;;
+
+*)
+
+echo
+
+echo -e "${VERMELHO}Opção inválida.${RESET}"
+
+sleep 2
+
+;;
+
+esac
+
+done

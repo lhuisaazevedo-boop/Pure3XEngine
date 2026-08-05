@@ -28,7 +28,7 @@ bool ConfigManager::SaveConfig() {
         return false;
     }
 
-    file << "# Pure3XEngenie Config\n";
+    file << "# Pure3XEngine Config\n";
 
     file.close();
 

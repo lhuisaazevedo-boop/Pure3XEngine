@@ -1,13 +1,13 @@
-## 🚀 Pure3XEngenie v0.1.3 Alpha ##
+## 🚀 Pure3XEngine v0.1.3 Alpha ##
 
-«⚠️ O Pure3XEngenie encontra-se em fase Alpha.
+«⚠️ O Pure3XEngine encontra-se em fase Alpha.
 Novos recursos, melhorias e otimizações são adicionados a cada atualização.»
 
 ---
 
 ## 📌 Status Atual ##
 
-O Pure3XEngenie é uma engine em desenvolvimento, escrita em C++, com foco em arquitetura modular, organização do código e pesquisas relacionadas à emulação de PlayStation 3 no ecossistema Android.
+O Pure3XEngine é uma engine em desenvolvimento, escrita em C++, com foco em arquitetura modular, organização do código e pesquisas relacionadas à emulação de PlayStation 3 no ecossistema Android.
 
 A versão v0.1.3 Alpha consolida a base do projeto com melhorias no Boot System, Config Manager, System Manager, Network Manager e na estrutura geral da Engine.
 
@@ -18,10 +18,10 @@ A versão v0.1.3 Alpha consolida a base do projeto com melhorias no Boot System,
 ## 🟢 Boot System ##
 
 - Inicialização da Engine
-- Logo ASCII do Pure3XEngenie
+- Logo ASCII do Pure3XEngine
 - Barra de carregamento
 - Sequência de Boot aprimorada
-- Tela "Pure3XEngenie Ready"
+- Tela "Pure3XEngine Ready"
 
 ## 🧠 Core Engine ##
 
@@ -72,7 +72,7 @@ A versão v0.1.3 Alpha consolida a base do projeto com melhorias no Boot System,
 
 ## 📁 Estrutura do Projeto ##
 ```
-Pure3XEngenie/
+Pure3XEngine/
 ├── Config/
 ├── Core/
 │   ├── Boot/

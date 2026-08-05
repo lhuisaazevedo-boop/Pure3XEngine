@@ -2,7 +2,7 @@ package com.pure3x.lhuis;
 
 public class VersionManager {
 
-    private final String engineName = "Pure3XEngenie";
+    private final String engineName = "Pure3XEngine";
     private final String version = "v0.2.5 Alpha";
     private final String language = "C++20";
     private final String runtime = "Android Runtime (ART)";

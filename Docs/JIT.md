@@ -2,7 +2,7 @@ JIT Compiler
 
 Visão Geral
 
-O JIT (Just-In-Time Compiler) do Pure3XEngenie é responsável por traduzir instruções PowerPC do PlayStation 3 para código nativo ARM64 durante a execução.
+O JIT (Just-In-Time Compiler) do Pure3XEngine é responsável por traduzir instruções PowerPC do PlayStation 3 para código nativo ARM64 durante a execução.
 
 Atualmente o sistema encontra-se em fase estrutural, servindo como base para futuras implementações do recompilador dinâmico.
 

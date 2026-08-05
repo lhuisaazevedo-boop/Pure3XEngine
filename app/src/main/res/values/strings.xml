@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Pure3XEngenie</string>
+    <string name="app_name">Pure3XEngine</string>
 
-    <string name="engine_name">Pure3XEngenie</string>
+    <string name="engine_name">Pure3XEngine</string>
 
     <string name="engine_version">v0.2.3 Alpha</string>
 

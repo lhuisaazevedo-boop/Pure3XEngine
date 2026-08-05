@@ -84,15 +84,15 @@ to this project's gradle.properties.
 > Task :app:configureCMakeDebug[arm64-v8a] FAILED
 C/C++: /data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/cmake: 1: Syntax error: ")" unexpected
 
-[Incubating] Problems report is available at: file:///data/data/com.termux/files/home/Pure3XEngenie/build/reports/problems/problems-report.html
+[Incubating] Problems report is available at: file:///data/data/com.termux/files/home/Pure3XEngine/build/reports/problems/problems-report.html
 
 FAILURE: Build failed with an exception.
 
 * What went wrong:
 Execution failed for task ':app:configureCMakeDebug[arm64-v8a]' (registered by plugin 'com.android.internal.application').
-> [CXX1429] error when building with cmake using /data/data/com.termux/files/home/Pure3XEngenie/app/src/main/cpp/CMakeLists.txt: C++ build system [configure] failed while executing:
+> [CXX1429] error when building with cmake using /data/data/com.termux/files/home/Pure3XEngine/app/src/main/cpp/CMakeLists.txt: C++ build system [configure] failed while executing:
       /data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/cmake \
-        -H/data/data/com.termux/files/home/Pure3XEngenie/app/src/main/cpp \
+        -H/data/data/com.termux/files/home/Pure3XEngine/app/src/main/cpp \
         -DCMAKE_SYSTEM_NAME=Android \
         -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
         -DCMAKE_SYSTEM_VERSION=29 \
@@ -104,15 +104,15 @@ Execution failed for task ':app:configureCMakeDebug[arm64-v8a]' (registered by p
         -DCMAKE_TOOLCHAIN_FILE=/storage/emulated/0/Download/android-ndk-r27d/build/cmake/android.toolchain.cmake \
         -DCMAKE_MAKE_PROGRAM=/data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/ninja \
         -DCMAKE_CXX_FLAGS=-std=c++20 \
-        -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngenie/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a \
-        -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngenie/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a \
+        -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngine/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a \
+        -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngine/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a \
         -DCMAKE_BUILD_TYPE=Debug \
-        -B/data/data/com.termux/files/home/Pure3XEngenie/app/.cxx/Debug/593bd3n1/arm64-v8a \
+        -B/data/data/com.termux/files/home/Pure3XEngine/app/.cxx/Debug/593bd3n1/arm64-v8a \
         -GNinja
-    from /data/data/com.termux/files/home/Pure3XEngenie/app
+    from /data/data/com.termux/files/home/Pure3XEngine/app
   /data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/cmake: 1: Syntax error: ")" unexpected : com.android.ide.common.process.ProcessException: C++ build system [configure] failed while executing:
       /data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/cmake \
-        -H/data/data/com.termux/files/home/Pure3XEngenie/app/src/main/cpp \
+        -H/data/data/com.termux/files/home/Pure3XEngine/app/src/main/cpp \
         -DCMAKE_SYSTEM_NAME=Android \
         -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
         -DCMAKE_SYSTEM_VERSION=29 \
@@ -124,12 +124,12 @@ Execution failed for task ':app:configureCMakeDebug[arm64-v8a]' (registered by p
         -DCMAKE_TOOLCHAIN_FILE=/storage/emulated/0/Download/android-ndk-r27d/build/cmake/android.toolchain.cmake \
         -DCMAKE_MAKE_PROGRAM=/data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/ninja \
         -DCMAKE_CXX_FLAGS=-std=c++20 \
-        -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngenie/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a \
-        -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngenie/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a \
+        -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngine/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a \
+        -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngine/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a \
         -DCMAKE_BUILD_TYPE=Debug \
-        -B/data/data/com.termux/files/home/Pure3XEngenie/app/.cxx/Debug/593bd3n1/arm64-v8a \
+        -B/data/data/com.termux/files/home/Pure3XEngine/app/.cxx/Debug/593bd3n1/arm64-v8a \
         -GNinja
-    from /data/data/com.termux/files/home/Pure3XEngenie/app
+    from /data/data/com.termux/files/home/Pure3XEngine/app
   /data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/cmake: 1: Syntax error: ")" unexpected
   	at com.android.build.gradle.internal.cxx.process.ExecuteProcessKt.execute(ExecuteProcess.kt:288)
   	at com.android.build.gradle.internal.cxx.process.ExecuteProcessKt$executeProcess$1.invoke(ExecuteProcess.kt:108)
@@ -284,7 +284,7 @@ Execution failed for task ':app:configureCMakeDebug[arm64-v8a]' (registered by p
   	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
   	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
   	at java.base/java.lang.Thread.run(Thread.java:1583)
-  Caused by: com.android.ide.common.process.ProcessException: Error while executing process /data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/cmake with arguments {-H/data/data/com.termux/files/home/Pure3XEngenie/app/src/main/cpp -DCMAKE_SYSTEM_NAME=Android -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_SYSTEM_VERSION=29 -DANDROID_PLATFORM=android-29 -DANDROID_ABI=arm64-v8a -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DANDROID_NDK=/storage/emulated/0/Download/android-ndk-r27d -DCMAKE_ANDROID_NDK=/storage/emulated/0/Download/android-ndk-r27d -DCMAKE_TOOLCHAIN_FILE=/storage/emulated/0/Download/android-ndk-r27d/build/cmake/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=/data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/ninja -DCMAKE_CXX_FLAGS=-std=c++20 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngenie/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngenie/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a -DCMAKE_BUILD_TYPE=Debug -B/data/data/com.termux/files/home/Pure3XEngenie/app/.cxx/Debug/593bd3n1/arm64-v8a -GNinja}
+  Caused by: com.android.ide.common.process.ProcessException: Error while executing process /data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/cmake with arguments {-H/data/data/com.termux/files/home/Pure3XEngine/app/src/main/cpp -DCMAKE_SYSTEM_NAME=Android -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_SYSTEM_VERSION=29 -DANDROID_PLATFORM=android-29 -DANDROID_ABI=arm64-v8a -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DANDROID_NDK=/storage/emulated/0/Download/android-ndk-r27d -DCMAKE_ANDROID_NDK=/storage/emulated/0/Download/android-ndk-r27d -DCMAKE_TOOLCHAIN_FILE=/storage/emulated/0/Download/android-ndk-r27d/build/cmake/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=/data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/ninja -DCMAKE_CXX_FLAGS=-std=c++20 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngine/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngine/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a -DCMAKE_BUILD_TYPE=Debug -B/data/data/com.termux/files/home/Pure3XEngine/app/.cxx/Debug/593bd3n1/arm64-v8a -GNinja}
   	at com.android.build.gradle.internal.process.GradleProcessResult.buildProcessException(GradleProcessResult.java:73)
   	at com.android.build.gradle.internal.process.GradleProcessResult.assertNormalExitValue(GradleProcessResult.java:48)
   	at com.android.build.gradle.internal.cxx.process.ExecuteProcessKt.execute(ExecuteProcess.kt:277)
@@ -335,9 +335,9 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:con
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
-Caused by: com.android.builder.errors.EvalIssueException: [CXX1429] error when building with cmake using /data/data/com.termux/files/home/Pure3XEngenie/app/src/main/cpp/CMakeLists.txt: C++ build system [configure] failed while executing:
+Caused by: com.android.builder.errors.EvalIssueException: [CXX1429] error when building with cmake using /data/data/com.termux/files/home/Pure3XEngine/app/src/main/cpp/CMakeLists.txt: C++ build system [configure] failed while executing:
     /data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/cmake \
-      -H/data/data/com.termux/files/home/Pure3XEngenie/app/src/main/cpp \
+      -H/data/data/com.termux/files/home/Pure3XEngine/app/src/main/cpp \
       -DCMAKE_SYSTEM_NAME=Android \
       -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
       -DCMAKE_SYSTEM_VERSION=29 \
@@ -349,15 +349,15 @@ Caused by: com.android.builder.errors.EvalIssueException: [CXX1429] error when b
       -DCMAKE_TOOLCHAIN_FILE=/storage/emulated/0/Download/android-ndk-r27d/build/cmake/android.toolchain.cmake \
       -DCMAKE_MAKE_PROGRAM=/data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/ninja \
       -DCMAKE_CXX_FLAGS=-std=c++20 \
-      -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngenie/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a \
-      -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngenie/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a \
+      -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngine/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a \
+      -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngine/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a \
       -DCMAKE_BUILD_TYPE=Debug \
-      -B/data/data/com.termux/files/home/Pure3XEngenie/app/.cxx/Debug/593bd3n1/arm64-v8a \
+      -B/data/data/com.termux/files/home/Pure3XEngine/app/.cxx/Debug/593bd3n1/arm64-v8a \
       -GNinja
-  from /data/data/com.termux/files/home/Pure3XEngenie/app
+  from /data/data/com.termux/files/home/Pure3XEngine/app
 /data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/cmake: 1: Syntax error: ")" unexpected : com.android.ide.common.process.ProcessException: C++ build system [configure] failed while executing:
     /data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/cmake \
-      -H/data/data/com.termux/files/home/Pure3XEngenie/app/src/main/cpp \
+      -H/data/data/com.termux/files/home/Pure3XEngine/app/src/main/cpp \
       -DCMAKE_SYSTEM_NAME=Android \
       -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
       -DCMAKE_SYSTEM_VERSION=29 \
@@ -369,12 +369,12 @@ Caused by: com.android.builder.errors.EvalIssueException: [CXX1429] error when b
       -DCMAKE_TOOLCHAIN_FILE=/storage/emulated/0/Download/android-ndk-r27d/build/cmake/android.toolchain.cmake \
       -DCMAKE_MAKE_PROGRAM=/data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/ninja \
       -DCMAKE_CXX_FLAGS=-std=c++20 \
-      -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngenie/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a \
-      -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngenie/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a \
+      -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngine/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a \
+      -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngine/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a \
       -DCMAKE_BUILD_TYPE=Debug \
-      -B/data/data/com.termux/files/home/Pure3XEngenie/app/.cxx/Debug/593bd3n1/arm64-v8a \
+      -B/data/data/com.termux/files/home/Pure3XEngine/app/.cxx/Debug/593bd3n1/arm64-v8a \
       -GNinja
-  from /data/data/com.termux/files/home/Pure3XEngenie/app
+  from /data/data/com.termux/files/home/Pure3XEngine/app
 /data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/cmake: 1: Syntax error: ")" unexpected
 	at com.android.build.gradle.internal.cxx.process.ExecuteProcessKt.execute(ExecuteProcess.kt:288)
 	at com.android.build.gradle.internal.cxx.process.ExecuteProcessKt$executeProcess$1.invoke(ExecuteProcess.kt:108)
@@ -529,7 +529,7 @@ Caused by: com.android.builder.errors.EvalIssueException: [CXX1429] error when b
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
-Caused by: com.android.ide.common.process.ProcessException: Error while executing process /data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/cmake with arguments {-H/data/data/com.termux/files/home/Pure3XEngenie/app/src/main/cpp -DCMAKE_SYSTEM_NAME=Android -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_SYSTEM_VERSION=29 -DANDROID_PLATFORM=android-29 -DANDROID_ABI=arm64-v8a -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DANDROID_NDK=/storage/emulated/0/Download/android-ndk-r27d -DCMAKE_ANDROID_NDK=/storage/emulated/0/Download/android-ndk-r27d -DCMAKE_TOOLCHAIN_FILE=/storage/emulated/0/Download/android-ndk-r27d/build/cmake/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=/data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/ninja -DCMAKE_CXX_FLAGS=-std=c++20 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngenie/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngenie/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a -DCMAKE_BUILD_TYPE=Debug -B/data/data/com.termux/files/home/Pure3XEngenie/app/.cxx/Debug/593bd3n1/arm64-v8a -GNinja}
+Caused by: com.android.ide.common.process.ProcessException: Error while executing process /data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/cmake with arguments {-H/data/data/com.termux/files/home/Pure3XEngine/app/src/main/cpp -DCMAKE_SYSTEM_NAME=Android -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_SYSTEM_VERSION=29 -DANDROID_PLATFORM=android-29 -DANDROID_ABI=arm64-v8a -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DANDROID_NDK=/storage/emulated/0/Download/android-ndk-r27d -DCMAKE_ANDROID_NDK=/storage/emulated/0/Download/android-ndk-r27d -DCMAKE_TOOLCHAIN_FILE=/storage/emulated/0/Download/android-ndk-r27d/build/cmake/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=/data/data/com.termux/files/home/Android/Sdk/cmake/3.22.1/bin/ninja -DCMAKE_CXX_FLAGS=-std=c++20 -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngine/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/data/data/com.termux/files/home/Pure3XEngine/app/build/intermediates/cxx/Debug/593bd3n1/obj/arm64-v8a -DCMAKE_BUILD_TYPE=Debug -B/data/data/com.termux/files/home/Pure3XEngine/app/.cxx/Debug/593bd3n1/arm64-v8a -GNinja}
 	at com.android.build.gradle.internal.process.GradleProcessResult.buildProcessException(GradleProcessResult.java:73)
 	at com.android.build.gradle.internal.process.GradleProcessResult.assertNormalExitValue(GradleProcessResult.java:48)
 	at com.android.build.gradle.internal.cxx.process.ExecuteProcessKt.execute(ExecuteProcess.kt:277)

@@ -1,4 +1,4 @@
-# 🎮 Pure3XEngenie
+# 🎮 Pure3XEngine
 ## Input System Roadmap
 ### Version 0.1.8 Alpha
 
@@ -6,7 +6,7 @@
 
 # Introdução
 
-O Pure3XEngenie iniciou oficialmente a implementação do novo sistema de entrada (Input System), responsável pela comunicação entre o emulador e os controles físicos.
+O Pure3XEngine iniciou oficialmente a implementação do novo sistema de entrada (Input System), responsável pela comunicação entre o emulador e os controles físicos.
 
 Esta nova arquitetura foi projetada para ser modular, portátil e escalável, permitindo suporte a diversos tipos de gamepads durante a evolução do projeto.
 
@@ -285,11 +285,11 @@ Projeto em desenvolvimento.
 
 Versão:
 
-Pure3XEngenie v0.1.8 Alpha
+Pure3XEngine v0.1.8 Alpha
 
 ---
 
-© Pure3XEngenie Project
+© Pure3XEngine Project
 
 Experimental PlayStation 3 Engine for Android
 

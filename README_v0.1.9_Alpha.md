@@ -2,7 +2,7 @@
 
 ## 🚀 v0.2.0 Alpha — Foco Total Android
 
-A partir desta versão, o desenvolvimento do Pure3XEngenie entrará em uma nova fase.
+A partir desta versão, o desenvolvimento do Pure3XEngine entrará em uma nova fase.
 
 Durante as próximas semanas o projeto terá foco total na plataforma Android utilizando Android NDK r29.
 
@@ -83,7 +83,7 @@ Objetivos principais:
 
 ## 🎯 Objetivo Atual
 
-O foco principal do Pure3XEngenie neste momento é construir uma infraestrutura moderna, organizada e escalável para Android.
+O foco principal do Pure3XEngine neste momento é construir uma infraestrutura moderna, organizada e escalável para Android.
 
 A prioridade absoluta das próximas versões será o desenvolvimento utilizando Android NDK r29, integração ARM64 e evolução dos componentes nativos da Engine.
 
@@ -107,8 +107,8 @@ MIT License.
 
 ## 📢 Aviso
 
-O Pure3XEngenie permanece em estágio Alpha.
+O Pure3XEngine permanece em estágio Alpha.
 
 As versões atuais concentram-se na construção da infraestrutura principal da Engine e na preparação para futuras implementações do ecossistema PlayStation 3.
 
-Obrigado por acompanhar o desenvolvimento do Pure3XEngenie.
+Obrigado por acompanhar o desenvolvimento do Pure3XEngine.

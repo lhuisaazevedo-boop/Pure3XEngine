@@ -1,8 +1,8 @@
-Pure3XEngenie v0.2.0 Alpha - Planejamento Inicial
+Pure3XEngine v0.2.0 Alpha - Planejamento Inicial
 
 Visão Geral
 
-A versão 0.2.0 Alpha marca o início da transição do Pure3XEngenie para uma infraestrutura Android moderna baseada em Android NDK r29.
+A versão 0.2.0 Alpha marca o início da transição do Pure3XEngine para uma infraestrutura Android moderna baseada em Android NDK r29.
 
 O objetivo principal desta versão não é implementar emulação completa de PlayStation 3, mas preparar toda a fundação técnica necessária para futuras versões.
 
@@ -48,7 +48,7 @@ Cache
 
 Driver Manager
 
-O Pure3XEngenie não exigirá drivers específicos.
+O Pure3XEngine não exigirá drivers específicos.
 
 Modos disponíveis:
 
@@ -97,7 +97,7 @@ v0.1.9 Alpha
 Próxima etapa:
 Início da série v0.2.x Alpha com foco total em Android NDK r29.
 
-Pure3XEngenie 0.2.0 Alpha
+Pure3XEngine 0.2.0 Alpha
 =========================
 
 Objetivo:

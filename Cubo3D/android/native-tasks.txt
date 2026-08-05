@@ -1,0 +1,12 @@
+assembleDebug - Assembles main output for variant debug
+assembleDebugAndroidTest - Assembles main output for variant debugAndroidTest
+assembleDebugUnitTest - Assembles main output for variant debugUnitTest
+extractDebugNativeDebugMetadata
+extractDebugNativeSymbolTables
+extractReleaseNativeDebugMetadata
+extractReleaseNativeSymbolTables
+mergeDebugAndroidTestNativeLibs
+mergeDebugNativeDebugMetadata
+mergeDebugNativeLibs
+mergeReleaseNativeDebugMetadata
+mergeReleaseNativeLibs

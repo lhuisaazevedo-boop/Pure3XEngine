@@ -1,8 +1,8 @@
-# Pure3XEngenie v0.1.7 Alpha
+# Pure3XEngine v0.1.7 Alpha
 
 ## Backup Inicial
 
-Este arquivo marca o início do desenvolvimento da versão **v0.1.7 Alpha** do Pure3XEngenie.
+Este arquivo marca o início do desenvolvimento da versão **v0.1.7 Alpha** do Pure3XEngine.
 
 ## Objetivos da versão
 

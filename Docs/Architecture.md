@@ -2,7 +2,7 @@
 
 ## Estrutura Atual ##
 ```text
-Pure3XEngenie/
+Pure3XEngine/
 ├── Core/
 ├── Config/
 ├── Docs/
@@ -16,7 +16,7 @@ Pure3XEngenie/
 
 ## Estrutura Planejada ##
 ```text
-Pure3XEngenie/
+Pure3XEngine/
 ├── src/
 │   ├── main.cpp        # Entrada da Engine
 │   ├── Games.cpp       # Gerenciamento dos jogos (futuro)

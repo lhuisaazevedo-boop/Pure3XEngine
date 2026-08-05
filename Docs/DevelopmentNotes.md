@@ -1,8 +1,8 @@
-# Pure3XEngenie - Development Notes
+# Pure3XEngine - Development Notes
 
 ## Ambiente Preparado
 
-Durante o desenvolvimento da versão **v0.1.3 Update**, foram preparados os componentes necessários para a futura expansão da Pure3XEngenie no ambiente Android.
+Durante o desenvolvimento da versão **v0.1.3 Update**, foram preparados os componentes necessários para a futura expansão da Pure3XEngine no ambiente Android.
 
 A infraestrutura inicial foi organizada para suportar o desenvolvimento de recursos gráficos, multimídia e ferramentas nativas nas próximas versões da Engine.
 
@@ -83,6 +83,6 @@ Os recursos gráficos e multimídia ainda não foram integrados ao Core da Engin
 
 ## Observação
 
-⚠️ A prioridade atual permanece na estabilização da arquitetura principal da Pure3XEngenie antes da implementação dos recursos gráficos e multimídia.
+⚠️ A prioridade atual permanece na estabilização da arquitetura principal da Pure3XEngine antes da implementação dos recursos gráficos e multimídia.
 
 O suporte ao Android encontra-se em fase inicial de preparação e poderá apresentar instabilidades até que a infraestrutura esteja completamente integrada ao Core da Engine.

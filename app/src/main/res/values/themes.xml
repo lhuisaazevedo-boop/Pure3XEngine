@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Pure3XEngenie" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="Theme.Pure3XEngine" parent="Theme.Material3.Dark.NoActionBar">
 
         <item name="android:windowBackground">#050505</item>
 

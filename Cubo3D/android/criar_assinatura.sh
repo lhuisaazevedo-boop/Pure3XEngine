@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 echo "======================================="
-echo " Pure3XEngenie Android - Assinatura"
+echo " Pure3XEngine Android - Assinatura"
 echo "======================================="
 
 keytool -genkeypair \

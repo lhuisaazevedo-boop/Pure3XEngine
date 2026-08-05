@@ -1,8 +1,8 @@
-# 🚀 Pure3XEngenie v0.2.5 Alpha - Changelog
+# 🚀 Pure3XEngine v0.2.5 Alpha - Changelog
 
 ## ✨ Novidades da v0.2.5 Alpha
 
-O **Pure3XEngenie v0.2.5 Alpha** marca um importante avanço na infraestrutura do aplicativo Android, trazendo melhorias significativas na interface, gerenciamento de firmware e library de jogos.
+O **Pure3XEngine v0.2.5 Alpha** marca um importante avanço na infraestrutura do aplicativo Android, trazendo melhorias significativas na interface, gerenciamento de firmware e library de jogos.
 
 ---
 
@@ -84,7 +84,7 @@ O **Pure3XEngenie v0.2.5 Alpha** marca um importante avanço na infraestrutura d
 
 #### ❄️ Pure3X Time Freezer
 
-Novo sistema exclusivo do Pure3XEngenie.
+Novo sistema exclusivo do Pure3XEngine.
 
 ##### Recursos planejados
 
@@ -93,7 +93,7 @@ Novo sistema exclusivo do Pure3XEngenie.
 - ⏩ Fast Forward (2x, 4x e 8x) para acelerar cenas e carregamentos quando suportado.
 - 📊 Exibir FPS, CPU, GPU/RSX e uso de RAM durante a emulação.
 - 📝 Registrar eventos no sistema de logs.
-- ⚙️ Integração com a futura interface XMB do Pure3XEngenie.
+- ⚙️ Integração com a futura interface XMB do Pure3XEngine.
 
 ##### Objetivo
 
@@ -110,7 +110,7 @@ Criar uma ferramenta de controle da emulação para oferecer mais flexibilidade 
 ## 📥 Download APK v0.2.5 Alpha
 
 O APK v0.2.5 Alpha está disponível para download:
-- 📦 [Releases do GitHub](https://github.com/lhuisaazevedo-boop/Pure3XEngenie/releases)
+- 📦 [Releases do GitHub](https://github.com/lhuisaazevedo-boop/Pure3XEngine/releases)
 
 ---
 
@@ -125,11 +125,11 @@ O APK v0.2.5 Alpha está disponível para download:
 
 ## 🆘 Suporte e Feedback
 
-Encontrou um bug ou tem sugestões? Abra uma [Issue no GitHub](https://github.com/lhuisaazevedo-boop/Pure3XEngenie/issues).
+Encontrou um bug ou tem sugestões? Abra uma [Issue no GitHub](https://github.com/lhuisaazevedo-boop/Pure3XEngine/issues).
 
 Acompanhe as novidades:
 - 🐦 [X (Twitter)](https://x.com/Pure3X_PS3)
-- 💻 [GitHub](https://github.com/lhuisaazevedo-boop/Pure3XEngenie)
+- 💻 [GitHub](https://github.com/lhuisaazevedo-boop/Pure3XEngine)
 - 💬 Discord: Em breve
 
 ---
@@ -140,4 +140,4 @@ MIT License - Veja [LICENSE](LICENSE) para detalhes.
 
 ---
 
-> **Pure3XEngenie v0.2.5 Alpha** - Movendo a emulação PS3 para Android com liberdade e desempenho! 🚀
+> **Pure3XEngine v0.2.5 Alpha** - Movendo a emulação PS3 para Android com liberdade e desempenho! 🚀

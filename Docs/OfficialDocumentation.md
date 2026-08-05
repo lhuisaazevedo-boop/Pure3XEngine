@@ -1,6 +1,6 @@
 ## 📚 Documentação Oficial ##
 
-Bem-vindo à documentação oficial do Pure3XEngenie.
+Bem-vindo à documentação oficial do Pure3XEngine.
 
 Esta documentação será expandida gradualmente conforme o desenvolvimento da engine, reunindo informações técnicas, guias e referências para desenvolvedores.
 
@@ -26,7 +26,7 @@ Novos documentos serão adicionados continuamente conforme o desenvolvimento da 
 
 ---
 
-## 🚀 Pure3XEngenie ##
+## 🚀 Pure3XEngine ##
 
 Projeto desenvolvido em C++, com arquitetura modular, voltado para pesquisa, estudo e desenvolvimento de uma engine experimental inspirada na arquitetura do processador Cell Broadband Engine do PlayStation 3.
 
