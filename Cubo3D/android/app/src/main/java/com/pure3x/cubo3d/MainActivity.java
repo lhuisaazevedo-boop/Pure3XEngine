@@ -31,16 +31,65 @@ public class MainActivity extends Activity
     }
 
     private SurfaceView surfaceView;
+    private volatile boolean rendering = false;
 
     // Ponte Java -> C++
     private static native boolean nativeSurfaceCreated(Surface surface);
+
     private static native void nativeSurfaceChanged(
             Surface surface,
             int width,
             int height
     );
+
     private static native void nativeSurfaceDestroyed();
     private static native void nativeRenderFrame();
+
+    /*
+     * Loop do Cubo3D.
+     *
+     * postOnAnimation agenda o próximo frame sincronizado
+     * aproximadamente com o refresh da tela Android.
+     */
+    private final Runnable renderLoop = new Runnable() {
+        @Override
+        public void run() {
+
+            if (!rendering || surfaceView == null) {
+                return;
+            }
+
+            nativeRenderFrame();
+
+            if (rendering) {
+                surfaceView.postOnAnimation(this);
+            }
+        }
+    };
+
+    private void startRenderLoop() {
+
+        if (rendering || surfaceView == null) {
+            return;
+        }
+
+        rendering = true;
+
+        Log.i(TAG, "Render loop iniciado.");
+
+        surfaceView.postOnAnimation(renderLoop);
+    }
+
+    private void stopRenderLoop() {
+
+        rendering = false;
+
+        if (surfaceView != null) {
+            surfaceView.removeCallbacks(renderLoop);
+        }
+
+        Log.i(TAG, "Render loop parado.");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +123,13 @@ public class MainActivity extends Activity
         surfaceView.setLayoutParams(surfaceParams);
         surfaceView.getHolder().addCallback(this);
 
+        /*
+         * Botão manual continua disponível para diagnóstico.
+         */
         Button renderButton = createButton("Renderizar frame");
 
         renderButton.setOnClickListener(v -> {
-            Log.i(TAG, "Solicitando frame nativo.");
+            Log.i(TAG, "Solicitando frame manual.");
             nativeRenderFrame();
         });
 
@@ -115,11 +167,25 @@ public class MainActivity extends Activity
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+
         Log.i(TAG, "Surface criada.");
 
-        boolean ok = nativeSurfaceCreated(holder.getSurface());
+        boolean ok =
+                nativeSurfaceCreated(holder.getSurface());
 
-        Log.i(TAG, "nativeSurfaceCreated = " + ok);
+        Log.i(
+                TAG,
+                "nativeSurfaceCreated = " + ok
+        );
+
+        if (ok) {
+            startRenderLoop();
+        } else {
+            Log.e(
+                    TAG,
+                    "Falha iniciando renderer nativo."
+            );
+        }
     }
 
     @Override
@@ -131,7 +197,10 @@ public class MainActivity extends Activity
 
         Log.i(
                 TAG,
-                "Surface alterada: " + width + "x" + height
+                "Surface alterada: "
+                        + width
+                        + "x"
+                        + height
         );
 
         nativeSurfaceChanged(
@@ -142,13 +211,26 @@ public class MainActivity extends Activity
     }
 
     @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
+    public void surfaceDestroyed(
+            SurfaceHolder holder) {
+
         Log.i(TAG, "Surface destruída.");
+
+        stopRenderLoop();
 
         nativeSurfaceDestroyed();
     }
 
+    @Override
+    protected void onDestroy() {
+
+        stopRenderLoop();
+
+        super.onDestroy();
+    }
+
     private Button createButton(String text) {
+
         Button button = new Button(this);
 
         button.setText(text);

@@ -1,0 +1,23 @@
+# ninja log v7
+2	52	1786023212028519035	/data/data/com.termux/files/home/Pure3XEngine/Cubo3D/build-termux/CMakeFiles/cmake.verify_globs	3c37bc78e2da1a0d
+62	351	1786023212088519035	CMakeFiles/cubo3d.dir/src/Cube.cpp.o	fba2e9dcdca146f8
+70	419	1786023212096519035	CMakeFiles/cubo3d.dir/src/Engine.cpp.o	46a3c7b1cc798f52
+72	424	1786023212096519035	CMakeFiles/cubo3d.dir/src/FPSCounter.cpp.o	fc1b0773a930b8f9
+59	432	1786023212084519035	CMakeFiles/cubo3d.dir/src/Camera.cpp.o	ba6dada440ba5e05
+419	659	1786023212444519035	CMakeFiles/cubo3d.dir/src/Logger.cpp.o	d90923535730e777
+424	675	1786023212448519035	CMakeFiles/cubo3d.dir/src/Material.cpp.o	2ad933573836d3ef
+432	764	1786023212456519035	CMakeFiles/cubo3d.dir/src/Mesh.cpp.o	cb1f0e89101feee4
+675	1006	1786023212700519035	CMakeFiles/cubo3d.dir/src/ResourceManager.cpp.o	6d07cb22a3d79edd
+660	1009	1786023212684519035	CMakeFiles/cubo3d.dir/src/Renderer.cpp.o	357c6a3a622a099e
+764	1086	1786023212788519035	CMakeFiles/cubo3d.dir/src/Scene.cpp.o	7481ba42a90de72f
+1011	1226	1786023213036519035	CMakeFiles/cubo3d.dir/src/Texture.cpp.o	ba3052a1240e0111
+1006	1263	1786023213032519035	CMakeFiles/cubo3d.dir/src/Shader.cpp.o	ce4597dd476fbe42
+1086	1368	1786023213112519035	CMakeFiles/cubo3d.dir/src/Transform.cpp.o	4bc8e8cb1a6386d3
+137	11217	1786023212160519035	CMakeFiles/cubo3d.dir/src/Graphics/OpenGLESManager.cpp.o	ea8d0820ea2e909f
+54	11253	1786023212080519035	CMakeFiles/pure3x_core.dir/data/data/com.termux/files/home/Pure3XEngine/CoreEmulator/memory/MemoryManager.cpp.o	e73999e95167590a
+1226	11262	1786023213252519035	CMakeFiles/cubo3d.dir/src/main.cpp.o	aecde6e2a146532e
+124	11289	1786023212148519035	CMakeFiles/cubo3d.dir/src/Graphics/GraphicsManager.cpp.o	caa6251403c91937
+353	11300	1786023212376519035	CMakeFiles/cubo3d.dir/src/Graphics/VulkanManager.cpp.o	424611252d78c2a8
+90	11312	1786023212116519035	CMakeFiles/cubo3d.dir/src/Graphics/CubeRenderer.cpp.o	b75e940a34a8a369
+11254	11513	1786023223280519031	libpure3x_core.a	4545761e959844f
+11513	11803	1786023223536519031	libcubo3d.so	c1c86fc05648af55
