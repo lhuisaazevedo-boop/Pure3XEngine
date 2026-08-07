@@ -40,12 +40,6 @@ else
     echo "❌ Cubo3D não encontrado"
 fi
 
-if [ -d "$ROOT_DIR/QEMUCenter" ]; then
-    echo "✅ QEMUCenter encontrado"
-else
-    echo "❌ QEMUCenter não encontrado"
-fi
-
 echo
 echo "🧠 HARDWARE PS3"
 echo "------------------------------------------------------------"

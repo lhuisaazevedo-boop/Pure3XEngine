@@ -1,157 +1,147 @@
 cmake_minimum_required(VERSION 3.22.1)
 
-if(ANDROID)
-    set(CMAKE_C_COMPILER_WORKS 1 CACHE INTERNAL "")
-    set(CMAKE_CXX_COMPILER_WORKS 1 CACHE INTERNAL "")
-endif()
+project(
+    Cubo3D
+    VERSION 0.2.6
+    LANGUAGES CXX
+)
 
-project(Cubo3D VERSION 0.2.6 LANGUAGES CXX)
+# ============================================================
+# PURE3XENGINE 0.2.6 | CUBO3D + NÚCLEO PS3 COREEMULATOR
+# ============================================================
 
-option(PUREX_ANDROID "Build Cubo3D Android backend" ON)
-option(PUREX_ENGINE "Inclui suporte ao núcleo Pure3X" ON)
+option(PUREX_ANDROID  "Build com suporte Android NDK" ON)
+option(PUREX_ENGINE   "Incluir Núcleo PS3 CoreEmulator" ON)
 
+# ============================================================
+# CONFIGURAÇÃO PADRÃO C++
+# ============================================================
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # ============================================================
-# 1. CUBO3D — LABORATÓRIO GRÁFICO
+# 1. FONTES CUBO3D
 # ============================================================
-
 file(GLOB_RECURSE CUBO3D_SOURCES
     CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
 )
 
-# AndroidBridge somente no backend Android
+# Exclui ponte Android quando não estiver compilando para Android
 if(NOT PUREX_ANDROID)
-    list(FILTER CUBO3D_SOURCES
-        EXCLUDE REGEX ".*/Android/AndroidBridge\\.cpp$"
-    )
+    list(FILTER CUBO3D_SOURCES EXCLUDE REGEX ".*/Android/AndroidBridge\\.cpp$")
 endif()
 
 # ============================================================
-# 2. PURE3X CORE / NÚCLEO PS3
+# 2. NÚCLEO PS3 COREEMULATOR
 # ============================================================
-
-set(CORE_DIR
-    "${CMAKE_CURRENT_SOURCE_DIR}/../CoreEmulator"
-)
-
+set(CORE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../CoreEmulator")
 set(CORE_SOURCES "")
 
-if(PUREX_ENGINE AND EXISTS "${CORE_DIR}")
+if(PUREX_ENGINE)
+    if(NOT EXISTS "${CORE_DIR}")
+        message(FATAL_ERROR "❌ CoreEmulator não encontrado no caminho: ${CORE_DIR}")
+    endif()
 
     file(GLOB_RECURSE CORE_SOURCES
         CONFIGURE_DEPENDS
         "${CORE_DIR}/*.cpp"
     )
 
-    # Nunca incorporar artefatos de builds anteriores
-    list(FILTER CORE_SOURCES EXCLUDE REGEX "/build[^/]*/")
-    list(FILTER CORE_SOURCES EXCLUDE REGEX "/CMakeFiles/")
-    list(FILTER CORE_SOURCES EXCLUDE REGEX "/out/")
+    # Exclui arquivos de compilação e cache
+    list(FILTER CORE_SOURCES EXCLUDE REGEX ".*/build/[^/]+/")
+    list(FILTER CORE_SOURCES EXCLUDE REGEX ".*/CMakeFiles/")
     list(FILTER CORE_SOURCES EXCLUDE REGEX "/\\.cxx/")
 
-    # Backend Android do Core somente no Android
+    # Exclui arquivos específicos Android quando compilando fora do Android
     if(NOT PUREX_ANDROID)
-        list(FILTER CORE_SOURCES
-            EXCLUDE REGEX "/android/"
-        )
+        list(FILTER CORE_SOURCES EXCLUDE REGEX ".*/android/")
     endif()
-
 endif()
 
 # ============================================================
-# 3. DIAGNÓSTICO
+# 3. DIAGNÓSTICO E STATUS
 # ============================================================
-
 list(LENGTH CUBO3D_SOURCES CUBO3D_SOURCE_COUNT)
 list(LENGTH CORE_SOURCES CORE_SOURCE_COUNT)
+math(EXPR TOTAL_SOURCE_COUNT "${CUBO3D_SOURCE_COUNT} + ${CORE_SOURCE_COUNT}")
 
-math(EXPR TOTAL_SOURCE_COUNT
-    "${CUBO3D_SOURCE_COUNT} + ${CORE_SOURCE_COUNT}"
-)
-
-message(STATUS "==========================================")
-message(STATUS "Cubo3D sources : ${CUBO3D_SOURCE_COUNT}")
-message(STATUS "PS3 Core       : ${CORE_SOURCE_COUNT}")
-message(STATUS "TOTAL          : ${TOTAL_SOURCE_COUNT}")
-message(STATUS "PUREX_ENGINE   : ${PUREX_ENGINE}")
-message(STATUS "PUREX_ANDROID  : ${PUREX_ANDROID}")
-message(STATUS "ANDROID        : ${ANDROID}")
-message(STATUS "==========================================")
-
-foreach(SOURCE_FILE IN LISTS CORE_SOURCES)
-    message(STATUS "PS3 CORE -> ${SOURCE_FILE}")
-endforeach()
+message(STATUS "")
+message(STATUS "==========================================================")
+message(STATUS "  Pure3XEngine 0.2.6 Alpha")
+message(STATUS "  🧩 Biblioteca: Cubo3D")
+message(STATUS "  🧠 Módulo: Núcleo PS3 CoreEmulator")
+message(STATUS "  📱 Plataforma: Android")
+message(STATUS "  🎨 Renderização: OpenGL ES + Vulkan Ativo")
+message(STATUS "==========================================================")
+message(STATUS "  Arquivos Cubo3D      : ${CUBO3D_SOURCE_COUNT}")
+message(STATUS "  Arquivos CoreEmulator: ${CORE_SOURCE_COUNT}")
+message(STATUS "  Total de arquivos    : ${TOTAL_SOURCE_COUNT}")
+message(STATUS "  PUREX_ENGINE         : ${PUREX_ENGINE}")
+message(STATUS "  PUREX_ANDROID        : ${PUREX_ANDROID}")
+message(STATUS "==========================================================")
+message(STATUS "")
 
 # ============================================================
-# 4. NÚCLEO PS3
+# 4. BIBLIOTECA ESTÁTICA DO NÚCLEO
 # ============================================================
+if(PUREX_ENGINE)
+    if(NOT CORE_SOURCES)
+        message(FATAL_ERROR "❌ CoreEmulator existe mas nenhum arquivo .cpp foi localizado!")
+    endif()
 
-if(PUREX_ENGINE AND CORE_SOURCES)
-
-    add_library(pure3x_core STATIC
-        ${CORE_SOURCES}
-    )
+    add_library(pure3x_core STATIC ${CORE_SOURCES})
 
     target_include_directories(pure3x_core PUBLIC
         "${CORE_DIR}"
         "${CORE_DIR}/include"
-        "${CORE_DIR}/memory"
     )
 
-    target_compile_definitions(pure3x_core PRIVATE
-        PURE3X_ENGINE
-    )
+    target_compile_definitions(pure3x_core PUBLIC PUREX_ENGINE)
 
+    target_compile_options(pure3x_core PRIVATE
+        -fPIC
+        -fexceptions
+        -frtti
+    )
 endif()
 
 # ============================================================
-# 5. CUBO3D
+# 5. BIBLIOTECA PRINCIPAL COMPARTILHADA
 # ============================================================
-
 if(NOT CUBO3D_SOURCES)
-    message(FATAL_ERROR "Nenhum fonte do Cubo3D encontrado.")
+    message(FATAL_ERROR "❌ Nenhum arquivo .cpp do Cubo3D foi encontrado!")
 endif()
 
-add_library(cubo3d SHARED
-    ${CUBO3D_SOURCES}
-)
+add_library(cubo3d SHARED ${CUBO3D_SOURCES})
 
 target_include_directories(cubo3d PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}"
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
     "${CMAKE_CURRENT_SOURCE_DIR}/include"
-
     "${CORE_DIR}"
     "${CORE_DIR}/include"
-    "${CORE_DIR}/memory"
 )
 
-# ============================================================
-# 6. CONECTA PURE3X CORE AO LABORATÓRIO
-# ============================================================
-
+# Liga o núcleo PS3 garantindo que todos símbolos sejam incluídos
 if(TARGET pure3x_core)
-
     target_link_libraries(cubo3d PRIVATE
+        "-Wl,--whole-archive"
         pure3x_core
+        "-Wl,--no-whole-archive"
     )
-
-    target_compile_definitions(cubo3d PRIVATE
-        PURE3X_ENGINE
-    )
-
+    target_compile_definitions(cubo3d PRIVATE PUREX_ENGINE)
 endif()
 
 # ============================================================
-# 7. ANDROID
+# 6. BIBLIOTECAS DO ANDROID
 # ============================================================
-
 if(PUREX_ANDROID)
+    if(NOT ANDROID)
+        message(FATAL_ERROR "❌ PUREX_ANDROID=ON exige uso do Android NDK Toolchain!")
+    endif()
 
     find_library(ANDROID_LIB android REQUIRED)
     find_library(LOG_LIB log REQUIRED)
@@ -172,17 +162,15 @@ if(PUREX_ANDROID)
     )
 
     target_compile_definitions(cubo3d PRIVATE
-        PURE3X_ANDROID
+        PUREX_ANDROID
         CUBO3D_GLES_SUPPORT
         CUBO3D_VULKAN_SUPPORT
     )
-
 endif()
 
 # ============================================================
-# 8. FLAGS
+# 7. OPÇÕES DE COMPILAÇÃO
 # ============================================================
-
 target_compile_options(cubo3d PRIVATE
     -fPIC
     -fexceptions
@@ -194,17 +182,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
 endif()
 
 if(ANDROID)
-    target_link_options(cubo3d PRIVATE
-        -Wl,--no-undefined
-    )
+    target_link_options(cubo3d PRIVATE -Wl,--no-undefined)
 endif()
 
-# ============================================================
-# 9. NOME FINAL
-# ============================================================
-
-set_target_properties(cubo3d PROPERTIES
-    OUTPUT_NAME "cubo3d"
-    PREFIX "lib"
-    SUFFIX ".so"
-)
