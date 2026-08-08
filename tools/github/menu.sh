@@ -1,10 +1,11 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 # ==========================================================
-# Pure3XEngine - GitHub Center
+# 🟢 GITHUB CENTER — Pure3XEngine 0.2.6 Alpha
 # ==========================================================
 
 ROOT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
+MODULES_DIR="$ROOT_DIR/tools/github/modules"
 INIT_FILE="$ROOT_DIR/tools/common/init.sh"
 
 if [ ! -f "$INIT_FILE" ]; then
@@ -20,17 +21,16 @@ cd "$ROOT_DIR" || exit 1
 # ==========================================================
 # FUNÇÕES LOCAIS
 # ==========================================================
-
 github_header() {
     cabecalho
     echo "🌿 GITHUB CENTER"
-    echo "============================================================"
+    echo "=============================================================="
 }
 
 release_header() {
     cabecalho
     echo "🚀 RELEASE MANAGER"
-    echo "============================================================"
+    echo "=============================================================="
 }
 
 git_repo_check() {
@@ -38,7 +38,6 @@ git_repo_check() {
         erro "Este projeto não é um repositório Git."
         return 1
     fi
-
     return 0
 }
 
@@ -51,33 +50,33 @@ git_remote_check() {
         erro "Remote 'origin' não configurado."
         return 1
     fi
-
     return 0
 }
 
 # ==========================================================
-# MENU PRINCIPAL
+# MENU PRINCIPAL — 15 OPÇÕES + 0 VOLTAR
 # ==========================================================
-
 while true
 do
     github_header
 
-    echo "1) 📊 Status"
-    echo "2) ➕ Add Arquivos"
-    echo "3) 💾 Commit"
-    echo "4) ↑ Push"
-    echo "5) ↓ Pull"
-    echo "6) 🌿 Branches"
-    echo "7) 🏷 Tags"
-    echo "8) 📜 Histórico"
-    echo "9) ⚙ Configurar Git"
-    echo "10) 🔗 Repositório Remoto"
-    echo "11) 🔄 Sincronizar Tudo"
-    echo "12) 🚀 Release Manager"
-    echo "13) 📦 Publicador P3XE"
+    echo "  1) 📊 Status"
+    echo "  2) ➕ Adicionar Arquivos"
+    echo "  3) 💾 Commit"
+    echo "  4) ⬆ Push"
+    echo "  5) ⬇ Pull"
+    echo "  6) 🌿 Branches"
+    echo "  7) 🏷 Tags"
+    echo "  8) 📜 Histórico"
+    echo "  9) ⚙ Configurar Git"
+    echo " 10) 🔗 Repositório Remoto"
+    echo " 11) 🔄 Sincronizar Tudo"
+    echo " 12) 🚀 Release Manager"
+    echo " 13) 📦 Publicador P3XE"
+    echo " 14) 🖼 Banner Manager"
+    echo " 15) 📄 README Manager"
     echo
-    echo "0) ← Voltar"
+    echo "  0) ← Voltar"
     echo
 
     read -r -p "Escolha uma opção: " opcao
@@ -87,31 +86,25 @@ do
         1)
             cabecalho
             echo "📊 STATUS DO REPOSITÓRIO"
-            echo "============================================================"
-
+            echo "=============================================================="
             if git_repo_check; then
                 echo "Branch : $(git_branch_atual)"
                 echo
                 git status
             fi
-
             pausa
             ;;
 
         2)
             cabecalho
             echo "➕ ADICIONAR ARQUIVOS"
-            echo "============================================================"
-
+            echo "=============================================================="
             if git_repo_check; then
                 git status --short
                 echo
-
                 read -r -p "Adicionar alterações ao stage? [s/N]: " resp
-
                 if [[ "$resp" =~ ^[sS]$ ]]; then
                     git add -A
-
                     if [ $? -eq 0 ]; then
                         sucesso "Arquivos adicionados."
                         git status --short
@@ -120,25 +113,20 @@ do
                     fi
                 fi
             fi
-
             pausa
             ;;
 
         3)
             cabecalho
             echo "💾 COMMIT"
-            echo "============================================================"
-
+            echo "=============================================================="
             if git_repo_check; then
-
                 if git diff --cached --quiet; then
                     erro "Não existem alterações preparadas para commit."
                 else
                     git status --short
                     echo
-
                     read -r -p "Mensagem do commit: " msg
-
                     if [ -z "$msg" ]; then
                         erro "Mensagem do commit não pode ficar vazia."
                     elif git commit -m "$msg"; then
@@ -148,24 +136,20 @@ do
                     fi
                 fi
             fi
-
             pausa
             ;;
 
         4)
             cabecalho
-            echo "↑ PUSH"
-            echo "============================================================"
-
+            echo "⬆ PUSH"
+            echo "=============================================================="
             if git_repo_check && git_remote_check; then
                 branch="$(git_branch_atual)"
-
                 if [ -z "$branch" ]; then
                     erro "Não foi possível detectar a branch atual."
                 else
                     echo "Branch: $branch"
                     echo
-
                     if git push origin "$branch"; then
                         sucesso "Push concluído."
                     else
@@ -173,18 +157,15 @@ do
                     fi
                 fi
             fi
-
             pausa
             ;;
 
         5)
             cabecalho
-            echo "↓ PULL"
-            echo "============================================================"
-
+            echo "⬇ PULL"
+            echo "=============================================================="
             if git_repo_check && git_remote_check; then
                 branch="$(git_branch_atual)"
-
                 if [ -z "$branch" ]; then
                     erro "Não foi possível detectar a branch atual."
                 elif git pull --rebase origin "$branch"; then
@@ -193,51 +174,43 @@ do
                     erro "Falha no pull."
                 fi
             fi
-
             pausa
             ;;
 
         6)
             cabecalho
             echo "🌿 BRANCHES"
-            echo "============================================================"
-
+            echo "=============================================================="
             if git_repo_check; then
                 git branch -a
             fi
-
             pausa
             ;;
 
         7)
             cabecalho
-            echo "🏷 TAGS"
-            echo "============================================================"
-
+            echo "🏷️ TAGS"
+            echo "=============================================================="
             if git_repo_check; then
                 git tag --sort=-version:refname
             fi
-
             pausa
             ;;
 
         8)
             cabecalho
             echo "📜 HISTÓRICO"
-            echo "============================================================"
-
+            echo "=============================================================="
             if git_repo_check; then
                 git log --oneline --graph --decorate -20
             fi
-
             pausa
             ;;
 
         9)
             cabecalho
-            echo "⚙ CONFIGURAÇÃO GIT"
-            echo "============================================================"
-
+            echo "⚙️ CONFIGURAÇÃO GIT"
+            echo "=============================================================="
             git config --list
             pausa
             ;;
@@ -245,32 +218,27 @@ do
         10)
             cabecalho
             echo "🔗 REPOSITÓRIO REMOTO"
-            echo "============================================================"
-
+            echo "=============================================================="
             if git_repo_check; then
                 git remote -v
             fi
-
             pausa
             ;;
 
         11)
             cabecalho
             echo "🔄 SINCRONIZAR P3XE"
-            echo "============================================================"
-
+            echo "=============================================================="
             if ! git_repo_check; then
                 pausa
                 continue
             fi
-
             if ! git_remote_check; then
                 pausa
                 continue
             fi
 
             echo "Alterações encontradas:"
-            echo
             git status --short
             echo
 
@@ -281,15 +249,13 @@ do
             fi
 
             read -r -p "Mensagem do commit: " msg
-
             if [ -z "$msg" ]; then
                 erro "Mensagem vazia. Sincronização cancelada."
                 pausa
                 continue
             fi
 
-            read -r -p "Adicionar, commit e enviar para GitHub? [s/N]: " resp
-
+            read -r -p "Adicionar, commit e enviar para o GitHub? [s/N]: " resp
             if [[ ! "$resp" =~ ^[sS]$ ]]; then
                 echo "Operação cancelada."
                 pausa
@@ -315,15 +281,12 @@ do
             }
 
             branch="$(git_branch_atual)"
-
             git push origin "$branch"
-
             if [ $? -eq 0 ]; then
                 sucesso "P3XE sincronizado com o GitHub."
             else
                 erro "Commit criado, mas o push falhou."
             fi
-
             pausa
             ;;
 
@@ -331,71 +294,59 @@ do
             while true
             do
                 release_header
-
-                echo "1) Criar Tag"
-                echo "2) Listar Tags"
-                echo "3) Remover Tag"
-                echo "4) Gerar CHANGELOG"
-                echo "5) Preparar Nova Release"
                 echo
-                echo "0) Voltar"
+                echo "  1) 🏷️ Criar Tag"
+                echo "  2) 📋 Listar Tags"
+                echo "  3) 🗑️ Remover Tag"
+                echo "  4) 📝 Gerar CHANGELOG"
+                echo "  5) 🚀 Preparar Nova Release"
+                echo "  0) ← Voltar"
                 echo
 
                 read -r -p "Escolha: " rel
 
                 case "$rel" in
-
                     1)
                         read -r -p "Versão (ex: v0.2.6-alpha): " versao
-
                         if [ -z "$versao" ]; then
                             erro "Versão vazia."
                         elif git rev-parse "$versao" >/dev/null 2>&1; then
                             erro "A tag '$versao' já existe."
-                        elif git tag -a "$versao" -m "Pure3XEngine $versao"; then
+                        elif git tag -a "$versao" -m "Pure3XEngine Versão $versao"; then
                             sucesso "Tag $versao criada."
                         else
                             erro "Falha ao criar tag."
                         fi
-
                         pausa
                         ;;
-
                     2)
                         git tag --sort=-version:refname
                         pausa
                         ;;
-
                     3)
                         read -r -p "Tag para remover: " tag
-
                         if [ -z "$tag" ]; then
                             erro "Tag vazia."
                         elif git tag -d "$tag"; then
-                            sucesso "Tag local removida."
+                            sucesso "Tag removida localmente."
+                            echo -e "${AMARELO}⚠️ Para remover também do GitHub: git push origin --delete $tag${RESET}"
                         else
                             erro "Tag não encontrada."
                         fi
-
                         pausa
                         ;;
-
                     4)
-                        {
-                            echo "# Pure3XEngine - CHANGELOG"
-                            echo
-                            git log --pretty=format:'- %h %s'
-                            echo
-                        } > "$ROOT_DIR/CHANGELOG.md"
-
-                        sucesso "CHANGELOG.md criado."
+                        echo "# Pure3XEngine - CHANGELOG" > "$ROOT_DIR/CHANGELOG.md"
+                        echo "============================" >> "$ROOT_DIR/CHANGELOG.md"
+                        echo "" >> "$ROOT_DIR/CHANGELOG.md"
+                        git log --pretty=format:"- %h %s" >> "$ROOT_DIR/CHANGELOG.md"
+                        sucesso "CHANGELOG.md gerado!"
                         pausa
                         ;;
-
                     5)
                         cabecalho
                         echo "🚀 PREPARAR NOVA RELEASE"
-                        echo "============================================================"
+                        echo "=============================================================="
                         echo
                         echo "Branch : $(git_branch_atual)"
                         echo
@@ -403,16 +354,15 @@ do
                         git status --short
                         echo
                         echo "Últimas tags:"
-                        git tag --sort=-version:refname | head -n 10
+                        git tag --sort=-version:refname | head -5
                         echo
-                        echo "A preparação não publica automaticamente."
+                        echo -e "${AMARELO}⚠️ A preparação não publica automaticamente no GitHub.${RESET}"
+                        echo -e "${CIANO}Depois de revisar, use: git push origin --tags${RESET}"
                         pausa
                         ;;
-
                     0)
                         break
                         ;;
-
                     *)
                         erro "Opção inválida!"
                         pausa
@@ -424,7 +374,7 @@ do
         13)
             cabecalho
             echo "📦 PUBLICADOR P3XE"
-            echo "============================================================"
+            echo "=============================================================="
 
             cd "$ROOT_DIR" || {
                 erro "Não foi possível acessar ROOT_DIR."
@@ -436,89 +386,48 @@ do
                 pausa
                 continue
             fi
-
             if ! git_remote_check; then
                 pausa
                 continue
             fi
 
             if [ -f "README.md" ]; then
-                echo "✓ README.md encontrado"
+                echo -e "${VERDE}✓ README.md encontrado${RESET}"
             else
-                echo "△ README.md não encontrado"
+                echo -e "${AMARELO}⚠ README.md não encontrado${RESET}"
             fi
 
             if [ -f "cubo3d_launcher.png" ]; then
-                echo "✓ Capa encontrada"
+                echo -e "${VERDE}✓ Capa encontrada${RESET}"
             else
-                echo "△ Capa não encontrada"
+                echo -e "${AMARELO}⚠ Capa cubo3d_launcher.png não encontrada${RESET}"
             fi
 
             echo
-            echo "Arquivos modificados:"
-            echo "------------------------------------------------------------"
-            git status --short
-            echo "------------------------------------------------------------"
-            echo
-
-            if [ -z "$(git status --porcelain)" ]; then
-                sucesso "Projeto já está atualizado localmente."
-                pausa
-                continue
-            fi
-
-            read -r -p "Mensagem do commit: " msg
-
-            if [ -z "$msg" ]; then
-                erro "Mensagem vazia. Publicação cancelada."
-                pausa
-                continue
-            fi
-
-            read -r -p "Publicar estas alterações? [s/N]: " resp
-
-            if [[ ! "$resp" =~ ^[sS]$ ]]; then
-                echo "Publicação cancelada."
-                pausa
-                continue
-            fi
-
-            git add -A || {
-                erro "Falha ao adicionar arquivos."
-                pausa
-                continue
-            }
-
-            if git diff --cached --quiet; then
-                erro "Nenhuma alteração preparada."
-                pausa
-                continue
-            fi
-
-            git commit -m "$msg" || {
-                erro "Falha ao criar commit."
-                pausa
-                continue
-            }
-
-            branch="$(git_branch_atual)"
-
-            if git push origin "$branch"; then
-                sucesso "Projeto publicado com sucesso!"
-            else
-                erro "Commit criado, mas o GitHub não recebeu o push."
-            fi
-
+            echo -e "${CIANO}📋 Próximos passos:${RESET}"
+            echo "   1. Crie uma tag → 12) Release Manager → 1) Criar Tag"
+            echo "   2. Envie: git push origin --tags"
+            echo "   3. No GitHub → Draft a new release"
             pausa
+            ;;
+
+        14)
+            bash "$MODULES_DIR/banner.sh"
+            ;;
+
+        15)
+            bash "$MODULES_DIR/readme.sh"
             ;;
 
         0)
-            break
+            echo -e "\n${VERDE}✅ Voltando...${RESET}"
+            sleep 0.5
+            exit 0
             ;;
 
         *)
-            erro "Opção inválida!"
-            pausa
+            echo -e "\n${VERMELHO}❌ Opção inválida! Tente novamente.${RESET}"
+            sleep 1.2
             ;;
     esac
 done
