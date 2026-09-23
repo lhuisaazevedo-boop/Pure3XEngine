@@ -2,38 +2,16 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(
     Pure3XEngine
-    VERSION 0.2.5
+    VERSION 0.2.6
     LANGUAGES CXX
 )
 
-set(CMAKE_CXX_STANDARD 20)
+# Padrão único do projeto Android: C++23.
+# O compilador e o NDK são fornecidos pelo Android Gradle Plugin/CMake.
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 add_subdirectory(CoreEmulator)
 add_subdirectory(Cubo3D)
-
-# Configuração automática adicionada pelo P3XE
-set(CMAKE_C_COMPILER "/data/data/com.termux/files/home/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/linux-x86_64/bin/clang" CACHE FILEPATH "" FORCE)
-set(CMAKE_CXX_COMPILER "/data/data/com.termux/files/home/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++" CACHE FILEPATH "" FORCE)
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Configuração automática adicionada pelo P3XE
-set(CMAKE_C_COMPILER "/data/data/com.termux/files/home/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/linux-x86_64/bin/clang" CACHE FILEPATH "" FORCE)
-set(CMAKE_CXX_COMPILER "/data/data/com.termux/files/home/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++" CACHE FILEPATH "" FORCE)
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Configuração automática adicionada pelo P3XE
-set(CMAKE_C_COMPILER "/data/data/com.termux/files/home/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/linux-x86_64/bin/clang" CACHE FILEPATH "" FORCE)
-set(CMAKE_CXX_COMPILER "/data/data/com.termux/files/home/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++" CACHE FILEPATH "" FORCE)
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Configuração automática adicionada pelo P3XE
-set(CMAKE_C_COMPILER "/data/data/com.termux/files/home/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/linux-x86_64/bin/clang" CACHE FILEPATH "" FORCE)
-set(CMAKE_CXX_COMPILER "/data/data/com.termux/files/home/Android/Sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++" CACHE FILEPATH "" FORCE)
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)

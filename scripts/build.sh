@@ -1,155 +1,45 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -e
 
-# ==================================================
-# P3XE ANDROID BUILD
-# ==================================================
-
-# CORES
-VERDE="\033[1;32m"
-AZUL="\033[1;34m"
-AMARELO="\033[1;33m"
-VERMELHO="\033[1;31m"
-RESET="\033[0m"
-
-# ==================================================
-# CAMINHOS
-# ==================================================
+VERDE="\033[1;32m"; AZUL="\033[1;34m"; AMARELO="\033[1;33m"; VERMELHO="\033[1;31m"; RESET="\033[0m"
 ANDROID_HOME="$HOME/Android/Sdk"
 NDK_BASE="$ANDROID_HOME/ndk"
-
 ABI="arm64-v8a"
 API="29"
 BUILD_TYPE="Debug"
+CXX_STANDARD="23"
 
-# ==================================================
-# PROCURA NDK
-# ==================================================
-if [ ! -d "$NDK_BASE" ]; then
-    echo -e "${VERMELHO}❌ Pasta NDK não encontrada.${RESET}"
-    exit 1
-fi
-
-# Lista versões de forma compatível
-VERSOES=""
+[ -d "$NDK_BASE" ] || { echo -e "${VERMELHO}NDK não encontrado.${RESET}"; exit 1; }
+VERSOES=()
 for pasta in "$NDK_BASE"/*/; do
-    [ -d "$pasta" ] && VERSOES="$VERSOES $(basename "$pasta")"
+    [ -d "$pasta" ] && VERSOES+=("$(basename "$pasta")")
 done
-VERSOES=($(echo $VERSOES | tr ' ' '\n' | sort -Vr))
+IFS=$'\n' VERSOES=($(printf '%s\n' "${VERSOES[@]}" | sort -Vr)); unset IFS
+[ ${#VERSOES[@]} -gt 0 ] || { echo -e "${VERMELHO}Nenhum NDK instalado.${RESET}"; exit 1; }
 
-if [ ${#VERSOES[@]} -eq 0 ]; then
-    echo -e "${VERMELHO}❌ Nenhuma versão do Android NDK instalada.${RESET}"
-    exit 1
-fi
-
-clear
-
-echo -e "${AZUL}==============================================${RESET}"
-echo -e "${AZUL}        🛠️ P3XE ANDROID BUILD${RESET}"
-echo -e "${AZUL}==============================================${RESET}"
-echo
-echo "SDK : $ANDROID_HOME"
-echo
-
-echo "NDKs encontrados:"
-for i in "${!VERSOES[@]}"; do
-    printf " %2d) %s\n" "$((i+1))" "${VERSOES[$i]}"
-done
-
-echo
-echo -ne "${AMARELO}Escolha a versão [1]: ${RESET}"
-read ESC
-
-# Validação simples compatível
-if [ -z "$ESC" ] || ! echo "$ESC" | grep -qE '^[0-9]+$' || [ "$ESC" -lt 1 ] || [ "$ESC" -gt ${#VERSOES[@]} ]; then
-    ESC=1
-fi
+echo -e "${AZUL}P3XE Android Build — C++${CXX_STANDARD}${RESET}"
+for i in "${!VERSOES[@]}"; do printf " %2d) %s\n" "$((i+1))" "${VERSOES[$i]}"; done
+read -r -p "Escolha a versão [1]: " ESC
+if ! [[ "$ESC" =~ ^[0-9]+$ ]] || [ "$ESC" -lt 1 ] || [ "$ESC" -gt "${#VERSOES[@]}" ]; then ESC=1; fi
 
 NDK_VERSAO="${VERSOES[$((ESC-1))]}"
 NDK="$NDK_BASE/$NDK_VERSAO"
 TOOLCHAIN="$NDK/toolchains/llvm/prebuilt/linux-x86_64"
-
 CC="$TOOLCHAIN/bin/clang"
 CXX="$TOOLCHAIN/bin/clang++"
+[ -x "$CC" ] && [ -x "$CXX" ] || { echo -e "${VERMELHO}Clang não encontrado.${RESET}"; exit 1; }
+[ -f "$NDK/build/cmake/android.toolchain.cmake" ] || { echo -e "${VERMELHO}Toolchain CMake não encontrado.${RESET}"; exit 1; }
 
-# ==================================================
-# VERIFICAÇÕES
-# ==================================================
-if [ ! -d "$TOOLCHAIN" ]; then
-    echo -e "${VERMELHO}❌ Toolchain não encontrado.${RESET}"
-    exit 1
-fi
-if [ ! -f "$CC" ]; then
-    echo -e "${VERMELHO}❌ clang não encontrado.${RESET}"
-    exit 1
-fi
-if [ ! -f "$CXX" ]; then
-    echo -e "${VERMELHO}❌ clang++ não encontrado.${RESET}"
-    exit 1
-fi
-if [ ! -f "$NDK/build/cmake/android.toolchain.cmake" ]; then
-    echo -e "${VERMELHO}❌ android.toolchain.cmake não encontrado.${RESET}"
-    exit 1
-fi
-
-# ==================================================
-# AMBIENTE
-# ==================================================
-export PATH="$TOOLCHAIN/bin:$PATH"
-export CC
-export CXX
-export AR="$TOOLCHAIN/bin/llvm-ar"
-export RANLIB="$TOOLCHAIN/bin/llvm-ranlib"
-export STRIP="$TOOLCHAIN/bin/llvm-strip"
-
-echo
-echo -e "${VERDE}✓ SDK : $ANDROID_HOME${RESET}"
-echo -e "${VERDE}✓ NDK : $NDK_VERSAO${RESET}"
-echo -e "${VERDE}✓ ABI : $ABI${RESET}"
-echo -e "${VERDE}✓ API : android-$API${RESET}"
-echo
-
-echo "CMake:"
-cmake --version | head -1
-
-echo "Ninja:"
-ninja --version
-echo
-
-# ==================================================
-# BUILD
-# ==================================================
+export PATH="$TOOLCHAIN/bin:$PATH" CC CXX
+export AR="$TOOLCHAIN/bin/llvm-ar" RANLIB="$TOOLCHAIN/bin/llvm-ranlib" STRIP="$TOOLCHAIN/bin/llvm-strip"
 rm -rf out/build
-mkdir -p out/build
-
-INICIO=$(date +%s)
-
-cmake \
-    -S . \
-    -B out/build \
-    -G Ninja \
-    --fresh \
+cmake -S . -B out/build -G Ninja --fresh \
     -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
     -DCMAKE_TOOLCHAIN_FILE="$NDK/build/cmake/android.toolchain.cmake" \
-    -DANDROID_ABI="$ABI" \
-    -DANDROID_PLATFORM="android-$API" \
-    -DCMAKE_CXX_STANDARD=20 \
+    -DANDROID_NDK="$NDK" -DCMAKE_ANDROID_NDK="$NDK" \
+    -DANDROID_ABI="$ABI" -DANDROID_PLATFORM="android-$API" \
+    -DCMAKE_CXX_STANDARD="$CXX_STANDARD" \
     -DCMAKE_CXX_STANDARD_REQUIRED=ON \
-    -DCMAKE_HOST_SYSTEM_PROCESSOR=aarch64
-
-# ✅ Comando que executa a compilação
+    -DPUREX_ANDROID=ON -DPUREX_ENGINE=ON
 cmake --build out/build -j"$(nproc)"
-
-FIM=$(date +%s)
-
-echo
-echo -e "${VERDE}==============================================${RESET}"
-echo -e "${VERDE}🎉 BUILD CONCLUÍDO${RESET}"
-echo -e "${VERDE}==============================================${RESET}"
-echo "NDK : $NDK_VERSAO"
-echo "ABI : $ABI"
-echo "API : android-$API"
-echo "Tempo : $((FIM-INICIO)) segundos"
-echo "Saída : out/build"
-echo
-
+echo -e "${VERDE}BUILD CONCLUÍDO — NDK $NDK_VERSAO — C++${CXX_STANDARD}${RESET}"
