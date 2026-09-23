@@ -8,9 +8,7 @@ android {
     compileSdk 36
     buildToolsVersion "36.0.0"
 
-    // Android NDK r29
-    // O caminho do NDK já está em local.properties:
-    // ndk.dir=/data/data/com.termux/files/home/android-ndk-r29
+    // O Android Gradle Plugin seleciona este NDK pelo SDK local.
     ndkVersion "29.0.14206865"
 
     defaultConfig {
@@ -20,16 +18,16 @@ android {
         targetSdk 36
 
         versionCode 1
-        versionName "0.2.5 Alpha"
+        versionName "0.2.6 Alpha"
 
         ndk {
             abiFilters "arm64-v8a"
         }
 
-        // Flags usadas ao compilar o Cubo3D nativo.
         externalNativeBuild {
             cmake {
-                cppFlags "-std=c++20"
+                cppFlags "-std=c++20 -fexceptions -frtti"
+                arguments "-DPUREX_ANDROID=ON", "-DPUREX_ENGINE=ON"
             }
         }
     }
@@ -57,8 +55,6 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
-    // CMake principal:
-    // Cubo3D/CMakeLists.txt
     externalNativeBuild {
         cmake {
             path file("../../CMakeLists.txt")
