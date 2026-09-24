@@ -78,8 +78,33 @@ endif()
 target_compile_options(lhuis.pure3x PRIVATE -fPIC -fexceptions -frtti)
 
 if(ANDROID)
-    find_library(LOG_LIB log REQUIRED)
-    find_library(ANDROID_LIB android REQUIRED)
+    if(DEFINED ANDROID_SYSROOT)
+        set(ANDROID_LIB_DIR
+            "${ANDROID_SYSROOT}/usr/lib/aarch64-linux-android/29"
+        )
+    elseif(DEFINED ANDROID_NDK_ROOT)
+        set(ANDROID_LIB_DIR
+            "${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/29"
+        )
+    else()
+        message(FATAL_ERROR
+            "ANDROID_SYSROOT ou ANDROID_NDK_ROOT não definido pelo toolchain"
+        )
+    endif()
+
+    find_library(LOG_LIB
+        NAMES log
+        PATHS "${ANDROID_LIB_DIR}"
+        NO_DEFAULT_PATH
+        REQUIRED
+    )
+    find_library(ANDROID_LIB
+        NAMES android
+        PATHS "${ANDROID_LIB_DIR}"
+        NO_DEFAULT_PATH
+        REQUIRED
+    )
+
     target_link_libraries(lhuis.pure3x PRIVATE ${LOG_LIB} ${ANDROID_LIB})
 endif()
 
