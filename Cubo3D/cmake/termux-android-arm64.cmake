@@ -49,9 +49,10 @@ set(CMAKE_AR "${TERMUX_PREFIX}/bin/llvm-ar" CACHE FILEPATH "Termux archiver" FOR
 set(CMAKE_RANLIB "${TERMUX_PREFIX}/bin/llvm-ranlib" CACHE FILEPATH "Termux ranlib" FORCE)
 set(CMAKE_STRIP "${TERMUX_PREFIX}/bin/llvm-strip" CACHE FILEPATH "Termux strip" FORCE)
 
+# Deve ser uma string, não uma lista CMake. Uma lista geraria ';' entre
+# os elementos e o shell interpretaria o segundo argumento incorretamente.
 set(ANDROID_TARGET_FLAGS
-    "--target=${ANDROID_API_TRIPLE}"
-    "--sysroot=${ANDROID_SYSROOT}"
+    "--target=${ANDROID_API_TRIPLE} --sysroot=${ANDROID_SYSROOT}"
 )
 
 set(CMAKE_C_FLAGS_INIT "${ANDROID_TARGET_FLAGS}")
@@ -60,7 +61,8 @@ set(CMAKE_EXE_LINKER_FLAGS_INIT "${ANDROID_TARGET_FLAGS}")
 set(CMAKE_SHARED_LINKER_FLAGS_INIT "${ANDROID_TARGET_FLAGS}")
 set(CMAKE_MODULE_LINKER_FLAGS_INIT "${ANDROID_TARGET_FLAGS}")
 
-set(CMAKE_SYSROOT "${ANDROID_SYSROOT}" CACHE PATH "Android sysroot" FORCE)
+# Não definir CMAKE_SYSROOT: o Clang já recebe --sysroot acima.
+# Defini-lo também faria o CMake adicionar um segundo --sysroot.
 set(CMAKE_FIND_ROOT_PATH "${ANDROID_SYSROOT}" CACHE PATH "Android root path" FORCE)
 
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
