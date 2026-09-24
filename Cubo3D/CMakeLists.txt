@@ -86,13 +86,62 @@ if(PUREX_ANDROID)
         message(FATAL_ERROR "PUREX_ANDROID=ON exige uso do Android NDK Toolchain!")
     endif()
 
-    find_library(ANDROID_LIB android REQUIRED)
-    find_library(LOG_LIB log REQUIRED)
-    find_library(EGL_LIB EGL REQUIRED)
-    find_library(GLES2_LIB GLESv2 REQUIRED)
-    find_library(GLES3_LIB GLESv3 REQUIRED)
-    find_library(JNIGRAPHICS_LIB jnigraphics REQUIRED)
-    find_library(VULKAN_LIB vulkan REQUIRED)
+    if(DEFINED ANDROID_SYSROOT)
+        set(ANDROID_LIB_DIR
+            "${ANDROID_SYSROOT}/usr/lib/aarch64-linux-android/29"
+        )
+    elseif(DEFINED ANDROID_NDK_ROOT)
+        set(ANDROID_LIB_DIR
+            "${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/29"
+        )
+    else()
+        message(FATAL_ERROR
+            "ANDROID_SYSROOT ou ANDROID_NDK_ROOT não definido pelo toolchain"
+        )
+    endif()
+
+    find_library(ANDROID_LIB
+        NAMES android
+        PATHS "${ANDROID_LIB_DIR}"
+        NO_DEFAULT_PATH
+        REQUIRED
+    )
+    find_library(LOG_LIB
+        NAMES log
+        PATHS "${ANDROID_LIB_DIR}"
+        NO_DEFAULT_PATH
+        REQUIRED
+    )
+    find_library(EGL_LIB
+        NAMES EGL
+        PATHS "${ANDROID_LIB_DIR}"
+        NO_DEFAULT_PATH
+        REQUIRED
+    )
+    find_library(GLES2_LIB
+        NAMES GLESv2
+        PATHS "${ANDROID_LIB_DIR}"
+        NO_DEFAULT_PATH
+        REQUIRED
+    )
+    find_library(GLES3_LIB
+        NAMES GLESv3
+        PATHS "${ANDROID_LIB_DIR}"
+        NO_DEFAULT_PATH
+        REQUIRED
+    )
+    find_library(JNIGRAPHICS_LIB
+        NAMES jnigraphics
+        PATHS "${ANDROID_LIB_DIR}"
+        NO_DEFAULT_PATH
+        REQUIRED
+    )
+    find_library(VULKAN_LIB
+        NAMES vulkan
+        PATHS "${ANDROID_LIB_DIR}"
+        NO_DEFAULT_PATH
+        REQUIRED
+    )
 
     target_link_libraries(cubo3d PRIVATE ${ANDROID_LIB} ${LOG_LIB} ${EGL_LIB} ${GLES2_LIB} ${GLES3_LIB} ${JNIGRAPHICS_LIB} ${VULKAN_LIB})
 endif()
