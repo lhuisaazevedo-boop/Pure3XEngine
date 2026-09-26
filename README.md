@@ -1,225 +1,163 @@
-<p align="center">
-  <img src="assets/images/Alpha/Pure3XEngnie-0.2.6-Alpha.png" width="100%" alt="Pure3XEngine 0.2.6 Alpha">
-</p>
+# P3XE — Pure3XEngine
 
-<h1 align="center">Pure3XEngine</h1>
+P3XE é uma arquitetura própria de emulação nativa para Android, desenvolvida em C++ com foco em execução ARM64, modularidade e integração direta com o ecossistema Android/Termux.
 
-<p align="center">
-PlayStation 3 Experimental Emulator • Android • Cubo3D • QEMU Center
-</p>
+O projeto é dividido em componentes independentes para que o núcleo de emulação, o backend gráfico e a integração Android possam evoluir separadamente.
 
----
+## Arquitetura
 
-# Pure3XEngine 0.2.6 Alpha
-
-A Pure3XEngine é um projeto experimental de emulação de PlayStation 3 desenvolvido em C++20 para Android.
-
-O projeto possui arquitetura modular, permitindo que cada componente evolua de forma independente, incluindo renderização gráfica, virtualização, ferramentas de desenvolvimento e integração com Android.
-
-> Status atual: **Development / Alpha**
-
----
-
-# Destaques da versão 0.2.6 Alpha
-
-- Novo GitHub Center
-- Banner Manager integrado
-- Cubo3D Launcher
-- QEMU Center
-- Sistema automático de README
-- Ferramentas de Build
-- Estrutura modular reorganizada
-- Compatível com Android
-- Build utilizando CMake + Clang
-- Código em C++20
-
----
-
-# Componentes
-
-| Componente | Estado |
-|------------|---------|
-| CoreEmulator | ✅ Disponível |
-| Cubo3D | ✅ Disponível |
-| QEMU Center | ✅ Disponível |
-| Android | ✅ Disponível |
-| Config | ✅ Disponível |
-| Ferramentas P3XE | ✅ Disponível |
-
----
-
-# Arquitetura
-
-```
-Pure3XEngine/
-
-├── CoreEmulator/
-├── Cubo3D/
-├── QEMUCenter/
-├── Android/
-├── Config/
-├── assets/
-│   ├── banners/
-│   └── images/
-├── exports/
-│   ├── apk/
-│   └── releases/
-├── tools/
-│   ├── ai/
-│   ├── common/
-│   ├── emulator/
-│   └── github/
-└── README.md
+```text
+P3XE Emulator
+│
+├── JNI / Android
+│
+├── CoreEmulator
+│   └── liblhuis.pure3x.so
+│
+└── Cubo3D
+    └── libcubo3d.so
 ```
 
----
+## CoreEmulator
 
-# Cubo3D
+O `CoreEmulator` é responsável pelo núcleo de execução da emulação e pela comunicação entre os subsistemas do sistema emulado.
 
-Motor gráfico responsável pela renderização.
+Os componentes planejados e integrados incluem:
 
-Recursos:
+- SystemBus
+- MemoryManager
+- PPU
+- SPU
+- RSX / GPU
+- FirmwareManager
+- Boot System
+- HardwareInfo
+- Sistemas de I/O
 
-- OpenGL ES
-- Vulkan
-- Shader Manager
-- Render Pipeline
-- Texture Manager
+Biblioteca nativa:
 
----
+```text
+liblhuis.pure3x.so
+```
 
-# QEMU Center
+## Cubo3D
 
-Sistema responsável pela virtualização.
+O `Cubo3D` é o backend gráfico nativo do P3XE.
 
 Inclui:
 
-- Runtime QEMU
-- Gerenciamento de Máquinas Virtuais
-- Inicialização simplificada
-- Integração com Android
-
----
-
-# Android
-
-Camada responsável pela integração com dispositivos Android.
-
-Inclui:
-
-- JNI
-- Native Activity
-- Surface Manager
-- OpenGL ES
 - Vulkan
-- APK Runtime
+- OpenGL ES
+- Gerenciamento de shaders
+- Gerenciamento de recursos gráficos
+- Integração com o `CoreEmulator`
 
----
+Biblioteca nativa:
 
-# Development Kit
+```text
+libcubo3d.so
+```
 
-O P3XE Development Kit fornece ferramentas para:
+## JNI / Android
 
-- Build
-- Diagnóstico
-- Correção automática
-- GitHub Center
-- Banner Manager
-- Release Manager
-- README Generator
+O JNI fornece a ponte entre o código nativo e o Android.
 
----
+O APK funciona como a camada de integração responsável por carregar as bibliotecas nativas ARM64. O `CoreEmulator` e o `Cubo3D` são bibliotecas nativas e não precisam gerar um APK diretamente.
 
-# Tecnologias
+Estrutura ARM64 esperada:
 
-- C++20
+```text
+lib/arm64-v8a/
+├── liblhuis.pure3x.so
+├── libcubo3d.so
+└── libc++_shared.so
+```
+
+## Ambiente atual
+
+- Android 16
+- API alvo do aplicativo: 36
+- API nativa Android: 29
+- ABI: `arm64-v8a`
+- Android NDK: R29 (`29.0.14206865`)
+- Clang: 21.1.8
+- C++23
 - CMake
-- Clang
-- Shell Script
-- OpenGL ES
-- Vulkan
-- Git
-- GitHub
-- Android NDK
+- Termux
 
----
+## Build nativo
 
-# Build
+O `CoreEmulator` é compilado independentemente do APK:
 
 ```bash
 cd ~/Pure3XEngine
 
-bash tools/ai/menu.sh
+cmake --build CoreEmulator/build \
+  --target lhuis.pure3x \
+  -j4
 ```
 
-ou utilize o **GitHub Center** para gerenciar o projeto.
+Resultado esperado:
 
----
+```text
+CoreEmulator/build/liblhuis.pure3x.so
+```
 
-# Estrutura Modular
+O `Cubo3D` possui seu próprio processo de build e produz:
 
-Cada módulo funciona de forma independente.
+```text
+Cubo3D/build/libcubo3d.so
+```
 
-- CoreEmulator
-- Cubo3D
-- Android
-- QEMU Center
-- GitHub Center
-- Banner Manager
-- Release Manager
+## Validação das bibliotecas
 
----
+As bibliotecas geradas podem ser inspecionadas com:
 
-# Roadmap
+```bash
+file CoreEmulator/build/liblhuis.pure3x.so
+file Cubo3D/build/libcubo3d.so
 
-## 0.2.x Alpha
+readelf -d CoreEmulator/build/liblhuis.pure3x.so | grep NEEDED
+readelf -d Cubo3D/build/libcubo3d.so | grep NEEDED
+```
 
-- Estrutura principal
-- Ferramentas de desenvolvimento
-- Cubo3D
-- QEMU Center
-- GitHub Center
+As duas bibliotecas nativas devem ser compatíveis com ARM64 Android. Quando exigido pelas bibliotecas nativas, o runtime C++ compartilhado `libc++_shared.so` também deve estar disponível no APK.
 
-## 0.3.x Beta
+## Princípios
 
-- Interface Android
-- Melhorias no Renderer
-- Inicialização de jogos
-- Sistema de Configuração
+O P3XE busca manter:
 
-## Futuro
+- arquitetura modular;
+- separação entre emulação e renderização;
+- execução nativa ARM64;
+- integração direta com Android;
+- compatibilidade com Termux;
+- componentes independentes e reutilizáveis;
+- diagnóstico e builds reproduzíveis.
 
-- Emulação PlayStation 3
-- RSX
-- PPU
-- SPU
-- Áudio
-- Entrada
-- Compatibilidade crescente
+## Estado atual
 
----
+- O `CoreEmulator` possui um build nativo funcional e gera `liblhuis.pure3x.so`.
+- O `Cubo3D` gera a biblioteca nativa `libcubo3d.so`.
+- Os dois componentes são preparados para execução como bibliotecas nativas ARM64 no Android.
+- A próxima etapa é integrar as duas bibliotecas por JNI e validar o carregamento conjunto no Android.
 
-# Licença
+## Roadmap
 
-GNU General Public License 0.2.6 (GPL-3.0)
+### Alpha 0.2.6
 
-Consulte o arquivo **LICENSE** para mais informações.
+- Estabilizar o build nativo do `CoreEmulator`.
+- Gerar as bibliotecas ARM64 do `CoreEmulator` e do `Cubo3D`.
+- Validar as dependências nativas.
+- Preparar a integração JNI.
 
----
+### 0.2.7
 
-<p align="center">
-<img src="assets/images/Logo/cubo3d_laucher.png" width="160">
+- Melhorar a interface Android.
+- Simplificar a navegação e as configurações.
+- Tornar a experiência mais clara para a comunidade.
+- Preparar um fluxo simples para baixar e executar jogos.
 
-**Pure3XEngine 0.2.6 Alpha**
+## Licença
 
-Desenvolvido para pesquisa, aprendizado e evolução da emulação de PlayStation 3 no Android.
-</p>
-
-## 📊 Estatísticas
-
-- 📄 Arquivos C++: **73**
-- 📄 Arquivos Header: **66**
-- 📄 Scripts Shell: **190**
-- 📄 CMake: **7**
-- 📊 Linhas de código: **0**
-
+GNU General Public License v3.0 (GPL-3.0).
