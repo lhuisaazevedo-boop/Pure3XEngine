@@ -86,17 +86,31 @@ if(PUREX_ANDROID)
         message(FATAL_ERROR "PUREX_ANDROID=ON exige uso do Android NDK Toolchain!")
     endif()
 
-    if(DEFINED ANDROID_SYSROOT)
-        set(ANDROID_LIB_DIR
-            "${ANDROID_SYSROOT}/usr/lib/aarch64-linux-android/29"
-        )
-    elseif(DEFINED ANDROID_NDK_ROOT)
-        set(ANDROID_LIB_DIR
-            "${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/29"
-        )
-    else()
+    if(NOT DEFINED ANDROID_SYSROOT)
+        if(DEFINED CMAKE_ANDROID_NDK)
+            set(ANDROID_SYSROOT
+                "${CMAKE_ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/sysroot"
+            )
+        elseif(DEFINED ANDROID_NDK_ROOT)
+            set(ANDROID_SYSROOT
+                "${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64/sysroot"
+            )
+        else()
+            message(FATAL_ERROR
+                "ANDROID_SYSROOT, CMAKE_ANDROID_NDK ou ANDROID_NDK_ROOT "
+                "não definido pelo toolchain"
+            )
+        endif()
+    endif()
+
+    set(ANDROID_LIB_DIR
+        "${ANDROID_SYSROOT}/usr/lib/aarch64-linux-android/29"
+    )
+
+    if(NOT EXISTS "${ANDROID_LIB_DIR}/liblog.so")
         message(FATAL_ERROR
-            "ANDROID_SYSROOT ou ANDROID_NDK_ROOT não definido pelo toolchain"
+            "liblog.so não encontrado no caminho testado: "
+            "${ANDROID_LIB_DIR}/liblog.so"
         )
     endif()
 
