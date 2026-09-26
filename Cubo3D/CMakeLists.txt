@@ -7,7 +7,7 @@ project(
 )
 
 option(PUREX_ANDROID "Build com suporte Android NDK" ON)
-option(PUREX_ENGINE "Incluir Núcleo PS3 CoreEmulator" ON)
+option(PUREX_ENGINE "Incluir Núcleo PS3 CoreEmulator" OFF)
 
 # Padrão C++ único: C++23.
 set(CMAKE_CXX_STANDARD 23)
@@ -68,8 +68,6 @@ target_include_directories(cubo3d PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}"
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
     "${CMAKE_CURRENT_SOURCE_DIR}/include"
-    "${CORE_DIR}"
-    "${CORE_DIR}/include"
 )
 
 target_compile_options(cubo3d PRIVATE -fPIC -fexceptions -frtti)
@@ -77,7 +75,7 @@ target_compile_options(cubo3d PRIVATE -fPIC -fexceptions -frtti)
 target_compile_definitions(cubo3d PRIVATE PUREX_ANDROID CUBO3D_GLES_SUPPORT CUBO3D_VULKAN_SUPPORT)
 
 if(TARGET pure3x_core)
-    target_link_libraries(cubo3d PRIVATE "-Wl,--whole-archive" pure3x_core "-Wl,--no-whole-archive")
+    target_link_libraries(cubo3d PRIVATE pure3x_core)
     target_compile_definitions(cubo3d PRIVATE PUREX_ENGINE)
 endif()
 
