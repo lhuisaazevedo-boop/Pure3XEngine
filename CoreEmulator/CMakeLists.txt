@@ -6,7 +6,7 @@ project(
     LANGUAGES CXX
 )
 
-# Padrão C++ único: C++23.
+# Padrao C++ unico: C++23.
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -88,7 +88,7 @@ if(ANDROID)
         )
     else()
         message(FATAL_ERROR
-            "ANDROID_SYSROOT ou ANDROID_NDK_ROOT não definido pelo toolchain"
+            "ANDROID_SYSROOT ou ANDROID_NDK_ROOT nao definido pelo toolchain"
         )
     endif()
 
