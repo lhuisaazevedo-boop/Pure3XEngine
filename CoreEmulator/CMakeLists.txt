@@ -16,6 +16,11 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
+# PUREX_ANDROID e a mesma flag global usada pelo Cubo3D e pela raiz do
+# projeto. Se ja foi definida via -DPUREX_ANDROID=... na linha de comando,
+# option() preserva o valor do cache e nao o sobrescreve.
+option(PUREX_ANDROID "Compilar backend Android (CoreEmulator)" ON)
+
 option(PURE3X_BUILD_ANDROID "Compilar Backend Android" ON)
 option(PURE3X_BUILD_VIEWER "Compilar Viewer Termux X11" OFF)
 
@@ -77,7 +82,15 @@ endif()
 
 target_compile_options(lhuis.pure3x PRIVATE -fPIC -fexceptions -frtti)
 
-if(ANDROID)
+# IMPORTANTE:
+# O Clang do Termux tem como alvo padrao "aarch64-unknown-linux-android24".
+# Por causa disso, o CMake detecta o compilador e define a variavel
+# ANDROID como verdadeira automaticamente, mesmo em builds nativos do
+# Termux sem o toolchain do NDK. Por isso este bloco NAO pode depender
+# apenas de if(ANDROID) - ele precisa respeitar tambem a flag global
+# PUREX_ANDROID, que o usuario controla explicitamente via
+# -DPUREX_ANDROID=ON/OFF.
+if(ANDROID AND PUREX_ANDROID)
     if(DEFINED ANDROID_SYSROOT)
         set(ANDROID_LIB_DIR
             "${ANDROID_SYSROOT}/usr/lib/aarch64-linux-android/29"
