@@ -82,13 +82,17 @@ if(ANDROID)
         set(ANDROID_LIB_DIR
             "${ANDROID_SYSROOT}/usr/lib/aarch64-linux-android/29"
         )
+    elseif(DEFINED CMAKE_ANDROID_NDK)
+        set(ANDROID_LIB_DIR
+            "${CMAKE_ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/29"
+        )
     elseif(DEFINED ANDROID_NDK_ROOT)
         set(ANDROID_LIB_DIR
             "${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/29"
         )
     else()
         message(FATAL_ERROR
-            "ANDROID_SYSROOT ou ANDROID_NDK_ROOT nao definido pelo toolchain"
+            "ANDROID_SYSROOT, CMAKE_ANDROID_NDK ou ANDROID_NDK_ROOT nao definido pelo toolchain"
         )
     endif()
 
