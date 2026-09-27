@@ -6,8 +6,8 @@ project(
     LANGUAGES CXX
 )
 
-# Padrão único do projeto Android: C++23.
-# O compilador e o NDK são fornecidos pelo Android Gradle Plugin/CMake.
+# Padrao unico do projeto Android: C++23.
+# O compilador e o NDK sao fornecidos pelo Android Gradle Plugin/CMake.
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
