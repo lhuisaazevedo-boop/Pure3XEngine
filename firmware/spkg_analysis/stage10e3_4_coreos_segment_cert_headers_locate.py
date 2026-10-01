@@ -147,7 +147,9 @@ def resolve_constants(prior_manifest: Optional[dict]) -> tuple[int, int, int, li
     nested = prior_manifest.get("parsed_fields") or prior_manifest.get("fields")
     parsed = nested if isinstance(nested, dict) else prior_manifest
 
-    def _get_int(*keys: str, default: int) -> tuple[int, bool]:
+    def _get_int(
+        parsed: Any, prior_manifest: dict, keys: tuple[str, ...], default: int
+    ) -> tuple[int, bool]:
         for key in keys:
             value = parsed.get(key) if isinstance(parsed, dict) else None
             if value is None and isinstance(prior_manifest, dict):
@@ -160,10 +162,14 @@ def resolve_constants(prior_manifest: Optional[dict]) -> tuple[int, int, int, li
         return default, False
 
     cert_header_size, found_header_size = _get_int(
-        "cert_header_size", "certification_header_size", default=CERT_HEADER_SIZE
+        parsed, prior_manifest, ("cert_header_size", "certification_header_size"), CERT_HEADER_SIZE
     )
-    cert_entry_num, found_entry_num = _get_int("cert_entry_num", default=DEFAULT_CERT_ENTRY_NUM)
-    sign_offset, found_sign_offset = _get_int("sign_offset", default=DEFAULT_SIGN_OFFSET)
+    cert_entry_num, found_entry_num = _get_int(
+        parsed, prior_manifest, ("cert_entry_num",), DEFAULT_CERT_ENTRY_NUM
+    )
+    sign_offset, found_sign_offset = _get_int(
+        parsed, prior_manifest, ("sign_offset",), DEFAULT_SIGN_OFFSET
+    )
 
     if not (found_header_size or found_entry_num or found_sign_offset):
         warnings.append(
@@ -184,6 +190,11 @@ def resolve_constants(prior_manifest: Optional[dict]) -> tuple[int, int, int, li
         warnings.append(
             f"Prior manifest reports cert_entry_num={cert_entry_num}, "
             f"differing from the documented default {DEFAULT_CERT_ENTRY_NUM}."
+        )
+    if sign_offset != DEFAULT_SIGN_OFFSET:
+        warnings.append(
+            f"Prior manifest reports sign_offset=0x{sign_offset:x}, "
+            f"differing from the documented default 0x{DEFAULT_SIGN_OFFSET:x}."
         )
 
     return cert_header_size, cert_entry_num, sign_offset, warnings
