@@ -109,6 +109,25 @@ def load_prior_manifest(path: Path) -> Optional[dict]:
         return None
 
 
+def _lookup_int(
+    parsed_section: Any, manifest_root: dict, keys: tuple[str, ...], default: int
+) -> tuple[int, bool]:
+    """Look up the first matching key (in `parsed_section`, then `manifest_root`) and
+    coerce it to an int. Returns (value, found) where `found` is True only if a key
+    was actually present and successfully coerced; otherwise returns (default, False).
+    """
+    for key in keys:
+        value = parsed_section.get(key) if isinstance(parsed_section, dict) else None
+        if value is None and isinstance(manifest_root, dict):
+            value = manifest_root.get(key)
+        if value is not None:
+            try:
+                return (int(value, 0) if isinstance(value, str) else int(value)), True
+            except (TypeError, ValueError):
+                pass
+    return default, False
+
+
 def resolve_constants(prior_manifest: Optional[dict]) -> tuple[int, int, int, list[str]]:
     """Resolve (cert_header_size, cert_entry_num, sign_offset) from the prior manifest
     when possible, otherwise fall back to the documented defaults.
@@ -147,27 +166,13 @@ def resolve_constants(prior_manifest: Optional[dict]) -> tuple[int, int, int, li
     nested = prior_manifest.get("parsed_fields") or prior_manifest.get("fields")
     parsed = nested if isinstance(nested, dict) else prior_manifest
 
-    def _get_int(
-        parsed_section: Any, manifest_root: dict, keys: tuple[str, ...], default: int
-    ) -> tuple[int, bool]:
-        for key in keys:
-            value = parsed_section.get(key) if isinstance(parsed_section, dict) else None
-            if value is None and isinstance(manifest_root, dict):
-                value = manifest_root.get(key)
-            if value is not None:
-                try:
-                    return (int(value, 0) if isinstance(value, str) else int(value)), True
-                except (TypeError, ValueError):
-                    pass
-        return default, False
-
-    cert_header_size, found_header_size = _get_int(
+    cert_header_size, found_header_size = _lookup_int(
         parsed, prior_manifest, ("cert_header_size", "certification_header_size"), CERT_HEADER_SIZE
     )
-    cert_entry_num, found_entry_num = _get_int(
+    cert_entry_num, found_entry_num = _lookup_int(
         parsed, prior_manifest, ("cert_entry_num",), DEFAULT_CERT_ENTRY_NUM
     )
-    sign_offset, found_sign_offset = _get_int(
+    sign_offset, found_sign_offset = _lookup_int(
         parsed, prior_manifest, ("sign_offset",), DEFAULT_SIGN_OFFSET
     )
 

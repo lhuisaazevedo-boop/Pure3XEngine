@@ -15,6 +15,17 @@ be established.
 - `manifests/` — deterministic JSON manifests documenting inputs, computed
   offsets, validation checks, hashes, and status for each stage run.
 
+## Tests
+
+`tests/test_stage10e3_4.py` contains lightweight stdlib-only `unittest` tests
+covering the constant-resolution/warning logic and the end-to-end success and
+fail-closed paths (missing input, truncated input, out-of-bounds
+`sign_offset`). Run with:
+
+```sh
+python3 -m unittest firmware/spkg_analysis/tests/test_stage10e3_4.py -v
+```
+
 ## Stage 10E-3-4: Segment Certification Headers — Structural Location
 
 `stage10e3_4_coreos_segment_cert_headers_locate.py` locates and raw-extracts
