@@ -313,10 +313,16 @@ def main(argv: Optional[list[str]] = None) -> int:
         print(f"[{STAGE_ID}] WARNING: {warning}")
 
     # ---- Sanity check on the documented arithmetic itself ----
-    if total_size != 0x90 or entry_size != 0x30 or cert_entry_num != 3:
+    expected_total_size = DEFAULT_CERT_ENTRY_NUM * ENTRY_SIZE
+    if (
+        total_size != expected_total_size
+        or entry_size != ENTRY_SIZE
+        or cert_entry_num != DEFAULT_CERT_ENTRY_NUM
+    ):
         arithmetic_warning = (
             "resolved constants deviate from the documented "
-            f"cert_entry_num=3 * entry_size=0x30 = 0x90 (got cert_entry_num={cert_entry_num}, "
+            f"cert_entry_num={DEFAULT_CERT_ENTRY_NUM} * entry_size=0x{ENTRY_SIZE:x} = "
+            f"0x{expected_total_size:x} (got cert_entry_num={cert_entry_num}, "
             f"entry_size=0x{entry_size:x}, total_size=0x{total_size:x})."
         )
         manifest["warnings"].append(arithmetic_warning)
@@ -338,6 +344,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         data = args.input.read_bytes()
     except OSError as exc:
         fail_closed(manifest, args.manifest_output, f"Failed to read input '{args.input}': {exc}")
+        raise AssertionError("unreachable: fail_closed always exits")  # pragma: no cover
 
     input_size = len(data)
     manifest["input"]["size"] = f"0x{input_size:x}"
@@ -355,8 +362,8 @@ def main(argv: Optional[list[str]] = None) -> int:
     checks["sign_offset_within_buffer"] = sign_offset <= input_size
     # 4. end_offset must not exceed sign_offset (no overlap with the signature region).
     checks["end_within_sign_offset"] = end_offset <= sign_offset
-    # 5. extracted size must be exactly 0x90.
-    checks["total_size_is_0x90"] = total_size == 0x90
+    # 5. extracted size must be exactly the documented total (0x90 bytes).
+    checks["total_size_is_expected"] = total_size == expected_total_size
 
     manifest["validation"] = checks
 
@@ -386,8 +393,10 @@ def main(argv: Optional[list[str]] = None) -> int:
                 f"end_offset 0x{end_offset:x} exceeds sign_offset 0x{sign_offset:x}; "
                 "the computed region would overlap the signature boundary."
             )
-        if not checks["total_size_is_0x90"]:
-            details.append(f"Computed total_size 0x{total_size:x} is not exactly 0x90.")
+        if not checks["total_size_is_expected"]:
+            details.append(
+                f"Computed total_size 0x{total_size:x} is not exactly 0x{expected_total_size:x}."
+            )
         fail_closed(
             manifest,
             args.manifest_output,
