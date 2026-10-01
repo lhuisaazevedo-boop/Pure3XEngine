@@ -148,12 +148,12 @@ def resolve_constants(prior_manifest: Optional[dict]) -> tuple[int, int, int, li
     parsed = nested if isinstance(nested, dict) else prior_manifest
 
     def _get_int(
-        parsed: Any, prior_manifest: dict, keys: tuple[str, ...], default: int
+        parsed_section: Any, manifest_root: dict, keys: tuple[str, ...], default: int
     ) -> tuple[int, bool]:
         for key in keys:
-            value = parsed.get(key) if isinstance(parsed, dict) else None
-            if value is None and isinstance(prior_manifest, dict):
-                value = prior_manifest.get(key)
+            value = parsed_section.get(key) if isinstance(parsed_section, dict) else None
+            if value is None and isinstance(manifest_root, dict):
+                value = manifest_root.get(key)
             if value is not None:
                 try:
                     return (int(value, 0) if isinstance(value, str) else int(value)), True
@@ -181,17 +181,17 @@ def resolve_constants(prior_manifest: Optional[dict]) -> tuple[int, int, int, li
             f"cert_entry_num={cert_entry_num}, sign_offset=0x{sign_offset:x})."
         )
 
-    if cert_header_size != CERT_HEADER_SIZE:
+    if found_header_size and cert_header_size != CERT_HEADER_SIZE:
         warnings.append(
             f"Prior manifest reports cert_header_size=0x{cert_header_size:x}, "
             f"differing from the documented 0x{CERT_HEADER_SIZE:x}."
         )
-    if cert_entry_num != DEFAULT_CERT_ENTRY_NUM:
+    if found_entry_num and cert_entry_num != DEFAULT_CERT_ENTRY_NUM:
         warnings.append(
             f"Prior manifest reports cert_entry_num={cert_entry_num}, "
             f"differing from the documented default {DEFAULT_CERT_ENTRY_NUM}."
         )
-    if sign_offset != DEFAULT_SIGN_OFFSET:
+    if found_sign_offset and sign_offset != DEFAULT_SIGN_OFFSET:
         warnings.append(
             f"Prior manifest reports sign_offset=0x{sign_offset:x}, "
             f"differing from the documented default 0x{DEFAULT_SIGN_OFFSET:x}."
@@ -207,13 +207,13 @@ def write_manifest(manifest: dict, path: Path) -> None:
         fh.write("\n")
 
 
-def fail_closed(manifest: dict, message: str) -> NoReturn:
+def fail_closed(manifest: dict, manifest_output_path: Path, message: str) -> NoReturn:
     manifest["status"] = "ERROR"
     manifest["error"] = message
-    write_manifest(manifest, Path(manifest["_manifest_output_path"]))
+    write_manifest(manifest, manifest_output_path)
     print(f"[{STAGE_ID}] STATUS: ERROR")
     print(f"[{STAGE_ID}] ERROR: {message}")
-    print(f"[{STAGE_ID}] Manifest (failure record) written to: {manifest['_manifest_output_path']}")
+    print(f"[{STAGE_ID}] Manifest (failure record) written to: {manifest_output_path}")
     sys.exit(2)
 
 
@@ -267,7 +267,6 @@ def main(argv: Optional[list[str]] = None) -> int:
             "Certification Header entries. No big-endian field parsing is performed "
             "in this stage."
         ),
-        "_manifest_output_path": str(args.manifest_output),
         "input": {"path": str(args.input)},
         "warnings": [],
         "validation": {},
@@ -322,6 +321,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     if not args.input.is_file():
         fail_closed(
             manifest,
+            args.manifest_output,
             (
                 f"Input decrypted CORE OS certification blob not found at '{args.input}'. "
                 "The complete decrypted blob produced by Stage 10E-3-2 is required before "
@@ -332,7 +332,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     try:
         data = args.input.read_bytes()
     except OSError as exc:
-        fail_closed(manifest, f"Failed to read input '{args.input}': {exc}")
+        fail_closed(manifest, args.manifest_output, f"Failed to read input '{args.input}': {exc}")
 
     input_size = len(data)
     manifest["input"]["size"] = f"0x{input_size:x}"
@@ -382,6 +382,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             )
         fail_closed(
             manifest,
+            args.manifest_output,
             "Boundary validation failed; location of the Segment Certification Header "
             "region could not be established unambiguously: " + " ".join(details),
         )
@@ -391,6 +392,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     if len(region) != total_size:
         fail_closed(
             manifest,
+            args.manifest_output,
             f"Internal consistency error: sliced region size 0x{len(region):x} does not "
             f"match expected total_size 0x{total_size:x}.",
         )
