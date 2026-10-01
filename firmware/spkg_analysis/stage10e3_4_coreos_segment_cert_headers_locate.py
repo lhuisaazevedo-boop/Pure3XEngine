@@ -139,24 +139,41 @@ def resolve_constants(prior_manifest: Optional[dict]) -> tuple[int, int, int, li
         )
         return cert_header_size, cert_entry_num, sign_offset, warnings
 
+    # Expected Stage 10E-3-3 manifest schema: a top-level "parsed_fields" (or legacy
+    # "fields") dict containing cert_header_size/cert_entry_num/sign_offset, matching
+    # the values documented in this module's docstring. If none of the expected keys
+    # are found anywhere (nested or top-level), this is surfaced as an explicit
+    # warning rather than silently applying defaults.
     nested = prior_manifest.get("parsed_fields") or prior_manifest.get("fields")
     parsed = nested if isinstance(nested, dict) else prior_manifest
 
-    def _get_int(*keys: str, default: int) -> int:
+    def _get_int(*keys: str, default: int) -> tuple[int, bool]:
         for key in keys:
             value = parsed.get(key) if isinstance(parsed, dict) else None
             if value is None and isinstance(prior_manifest, dict):
                 value = prior_manifest.get(key)
             if value is not None:
                 try:
-                    return int(value, 0) if isinstance(value, str) else int(value)
+                    return (int(value, 0) if isinstance(value, str) else int(value)), True
                 except (TypeError, ValueError):
                     pass
-        return default
+        return default, False
 
-    cert_header_size = _get_int("cert_header_size", "certification_header_size", default=CERT_HEADER_SIZE)
-    cert_entry_num = _get_int("cert_entry_num", default=DEFAULT_CERT_ENTRY_NUM)
-    sign_offset = _get_int("sign_offset", default=DEFAULT_SIGN_OFFSET)
+    cert_header_size, found_header_size = _get_int(
+        "cert_header_size", "certification_header_size", default=CERT_HEADER_SIZE
+    )
+    cert_entry_num, found_entry_num = _get_int("cert_entry_num", default=DEFAULT_CERT_ENTRY_NUM)
+    sign_offset, found_sign_offset = _get_int("sign_offset", default=DEFAULT_SIGN_OFFSET)
+
+    if not (found_header_size or found_entry_num or found_sign_offset):
+        warnings.append(
+            "Stage 10E-3-3 manifest found but none of the expected keys "
+            "(cert_header_size/certification_header_size, cert_entry_num, sign_offset) "
+            "were present under 'parsed_fields', 'fields', or the top level; the "
+            "manifest schema may differ from the expected one. Falling back to "
+            f"documented defaults (cert_header_size=0x{cert_header_size:x}, "
+            f"cert_entry_num={cert_entry_num}, sign_offset=0x{sign_offset:x})."
+        )
 
     if cert_header_size != CERT_HEADER_SIZE:
         warnings.append(
@@ -282,11 +299,13 @@ def main(argv: Optional[list[str]] = None) -> int:
 
     # ---- Sanity check on the documented arithmetic itself ----
     if total_size != 0x90 or entry_size != 0x30 or cert_entry_num != 3:
-        print(
-            f"[{STAGE_ID}] WARNING: resolved constants deviate from the documented "
+        arithmetic_warning = (
+            "resolved constants deviate from the documented "
             f"cert_entry_num=3 * entry_size=0x30 = 0x90 (got cert_entry_num={cert_entry_num}, "
             f"entry_size=0x{entry_size:x}, total_size=0x{total_size:x})."
         )
+        manifest["warnings"].append(arithmetic_warning)
+        print(f"[{STAGE_ID}] WARNING: {arithmetic_warning}")
 
     # ---- Load input blob (fail closed if missing/unreadable) ----
     if not args.input.is_file():
