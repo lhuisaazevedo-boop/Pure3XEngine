@@ -39,3 +39,7 @@ local.properties
 *~
 Cubo3D/build-*/
 *.backup
+
+# Python bytecode caches (firmware/spkg_analysis tooling)
+__pycache__/
+*.pyc
