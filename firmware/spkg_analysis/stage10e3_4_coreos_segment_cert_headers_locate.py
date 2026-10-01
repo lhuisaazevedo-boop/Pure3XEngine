@@ -57,7 +57,7 @@ import hashlib
 import json
 import sys
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, NoReturn, Optional
 
 STAGE_ID = "10E-3-4"
 STAGE_SLUG = "stage_10e3_4"
@@ -129,7 +129,18 @@ def resolve_constants(prior_manifest: Optional[dict]) -> tuple[int, int, int, li
         )
         return cert_header_size, cert_entry_num, sign_offset, warnings
 
-    parsed = prior_manifest.get("parsed_fields") or prior_manifest.get("fields") or prior_manifest
+    prior_status = prior_manifest.get("status") if isinstance(prior_manifest, dict) else None
+    if prior_status is not None and str(prior_status).upper() != "OK":
+        warnings.append(
+            f"Stage 10E-3-3 manifest reports status={prior_status!r} (not OK); its values "
+            "are not trusted. Falling back to documented defaults "
+            f"(cert_header_size=0x{cert_header_size:x}, cert_entry_num={cert_entry_num}, "
+            f"sign_offset=0x{sign_offset:x})."
+        )
+        return cert_header_size, cert_entry_num, sign_offset, warnings
+
+    nested = prior_manifest.get("parsed_fields") or prior_manifest.get("fields")
+    parsed = nested if isinstance(nested, dict) else prior_manifest
 
     def _get_int(*keys: str, default: int) -> int:
         for key in keys:
@@ -168,7 +179,7 @@ def write_manifest(manifest: dict, path: Path) -> None:
         fh.write("\n")
 
 
-def fail_closed(manifest: dict, message: str) -> "NoReturn":  # type: ignore[name-defined]
+def fail_closed(manifest: dict, message: str) -> NoReturn:
     manifest["status"] = "ERROR"
     manifest["error"] = message
     write_manifest(manifest, Path(manifest["_manifest_output_path"]))
@@ -292,7 +303,6 @@ def main(argv: Optional[list[str]] = None) -> int:
         data = args.input.read_bytes()
     except OSError as exc:
         fail_closed(manifest, f"Failed to read input '{args.input}': {exc}")
-        return 2  # unreachable, keeps type-checkers happy
 
     input_size = len(data)
     manifest["input"]["size"] = f"0x{input_size:x}"
