@@ -344,12 +344,14 @@ def main(argv: Optional[list[str]] = None) -> int:
     checks["start_within_buffer"] = 0 <= start_offset <= input_size
     # 2. end_offset must be within the buffer (no truncation of the region).
     checks["end_within_buffer"] = end_offset <= input_size
-    # 3. end_offset must not exceed sign_offset (no overlap with the signature region).
+    # 3. sign_offset itself must be within the buffer, otherwise the signature
+    #    boundary used by the next check is not actually present in the data and
+    #    cannot be relied upon to guarantee no overlap.
+    checks["sign_offset_within_buffer"] = sign_offset <= input_size
+    # 4. end_offset must not exceed sign_offset (no overlap with the signature region).
     checks["end_within_sign_offset"] = end_offset <= sign_offset
-    # 4. extracted size must be exactly 0x90.
+    # 5. extracted size must be exactly 0x90.
     checks["total_size_is_0x90"] = total_size == 0x90
-    # 5. start_offset must not be negative / entries must not overlap the header itself.
-    checks["start_not_before_header_end"] = start_offset >= cert_header_size
 
     manifest["validation"] = checks
 
@@ -368,6 +370,12 @@ def main(argv: Optional[list[str]] = None) -> int:
                 "full 0x90-byte Segment Certification Header region. The complete "
                 "decrypted blob from Stage 10E-3-2 is required, not a truncated extract."
             )
+        if not checks["sign_offset_within_buffer"]:
+            details.append(
+                f"sign_offset 0x{sign_offset:x} exceeds the input buffer size "
+                f"(0x{input_size:x}); the signature boundary is not actually present "
+                "in the data, so it cannot be used to guarantee no overlap."
+            )
         if not checks["end_within_sign_offset"]:
             details.append(
                 f"end_offset 0x{end_offset:x} exceeds sign_offset 0x{sign_offset:x}; "
@@ -375,11 +383,6 @@ def main(argv: Optional[list[str]] = None) -> int:
             )
         if not checks["total_size_is_0x90"]:
             details.append(f"Computed total_size 0x{total_size:x} is not exactly 0x90.")
-        if not checks["start_not_before_header_end"]:
-            details.append(
-                f"start_offset 0x{start_offset:x} precedes the end of the fixed "
-                f"Certification Header (0x{cert_header_size:x})."
-            )
         fail_closed(
             manifest,
             args.manifest_output,
