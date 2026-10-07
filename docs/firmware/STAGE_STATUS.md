@@ -1,7 +1,7 @@
 # Progresso da análise de firmware PS3 / XMB
 
-**Atualizado em:** 2026-10-07  
-**Estado geral:** Stage 13 — XMB Discovery / Structural Analysis em andamento; Stage 13.0.3 fechado; próximo: 13.0.4.  
+**Atualizado em:** 2026-10-07
+**Estado geral:** Stage 13 — XMB Discovery / Structural Analysis em andamento; Stage 13.0.3 fechado; próximo: 13.0.4.
 **Linha do projeto:** P3XE 0.2.7 Alpha. Observação: o `CMakeLists.txt` raiz ainda declara `VERSION 0.2.6`.
 
 Este painel é o índice de continuidade da análise. Cada stage fechado tem um registro próprio em [`stages/`](stages/), para que os próximos passos possam seguir a evidência sem depender do histórico da conversa.
