@@ -142,6 +142,10 @@ O P3XE busca manter:
 - Os dois componentes são preparados para execução como bibliotecas nativas ARM64 no Android.
 - A próxima etapa é integrar as duas bibliotecas por JNI e validar o carregamento conjunto no Android.
 
+## Progresso do firmware/XMB
+
+O acompanhamento versionado da análise do firmware PS3 e da estrutura XMB está em [`docs/firmware/STAGE_STATUS.md`](docs/firmware/STAGE_STATUS.md).
+
 ## Roadmap
 
 ### Alpha 0.2.6
