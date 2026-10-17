@@ -2,6 +2,8 @@ package com.pure3x.cubo3d;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Surface;
@@ -12,6 +14,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 public class MainActivity extends Activity
         implements SurfaceHolder.Callback {
@@ -31,7 +35,10 @@ public class MainActivity extends Activity
     }
 
     private SurfaceView surfaceView;
+    private TextView fpsText;
     private volatile boolean rendering = false;
+    private boolean fpsUpdatesRunning = false;
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     // Ponte Java -> C++
     private static native boolean nativeSurfaceCreated(Surface surface);
@@ -44,6 +51,36 @@ public class MainActivity extends Activity
 
     private static native void nativeSurfaceDestroyed();
     private static native void nativeRenderFrame();
+    private static native float nativeGetFps();
+
+    private final Runnable fpsUpdater = new Runnable() {
+        @Override
+        public void run() {
+            if (!fpsUpdatesRunning || fpsText == null) {
+                return;
+            }
+
+            fpsText.setText(String.format(
+                    Locale.US,
+                    "Cubo3D render FPS (não é FPS da emulação PS3): %.1f",
+                    nativeGetFps()
+            ));
+            handler.postDelayed(this, 500);
+        }
+    };
+
+    private void startFpsUpdates() {
+        if (fpsUpdatesRunning) {
+            return;
+        }
+        fpsUpdatesRunning = true;
+        handler.post(fpsUpdater);
+    }
+
+    private void stopFpsUpdates() {
+        fpsUpdatesRunning = false;
+        handler.removeCallbacks(fpsUpdater);
+    }
 
     /*
      * Loop do Cubo3D.
@@ -111,6 +148,12 @@ public class MainActivity extends Activity
         subtitle.setGravity(Gravity.CENTER);
         subtitle.setPadding(0, 8, 0, 20);
 
+        fpsText = new TextView(this);
+        fpsText.setText("Cubo3D render FPS (não é FPS da emulação PS3): 0.0");
+        fpsText.setTextSize(14);
+        fpsText.setGravity(Gravity.CENTER);
+        fpsText.setPadding(0, 0, 0, 12);
+
         surfaceView = new SurfaceView(this);
 
         LinearLayout.LayoutParams surfaceParams =
@@ -155,6 +198,7 @@ public class MainActivity extends Activity
 
         root.addView(title);
         root.addView(subtitle);
+        root.addView(fpsText);
         root.addView(surfaceView);
         root.addView(renderButton);
         root.addView(openGLButton);
@@ -180,6 +224,7 @@ public class MainActivity extends Activity
 
         if (ok) {
             startRenderLoop();
+            startFpsUpdates();
         } else {
             Log.e(
                     TAG,
@@ -217,6 +262,7 @@ public class MainActivity extends Activity
         Log.i(TAG, "Surface destruída.");
 
         stopRenderLoop();
+        stopFpsUpdates();
 
         nativeSurfaceDestroyed();
     }
@@ -225,6 +271,7 @@ public class MainActivity extends Activity
     protected void onDestroy() {
 
         stopRenderLoop();
+        stopFpsUpdates();
 
         super.onDestroy();
     }

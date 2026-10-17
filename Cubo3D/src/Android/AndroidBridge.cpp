@@ -6,6 +6,11 @@
 #include <EGL/egl.h>
 #include <GLES3/gl3.h>
 
+#include "Graphics/CubeRenderer.h"
+
+#include <atomic>
+#include <chrono>
+
 #define TAG "Cubo3D-Native"
 
 #define LOGI(...) \
@@ -33,6 +38,53 @@ static EGLContext gContext = EGL_NO_CONTEXT;
 static EGLConfig gConfig = nullptr;
 
 static bool gEglReady = false;
+
+static CubeRenderer gCubeRenderer;
+static bool gCubeRendererReady = false;
+static std::atomic<float> gFps{0.0f};
+static std::chrono::steady_clock::time_point gLastFrameTime;
+static std::chrono::steady_clock::time_point gFpsWindowStart;
+static unsigned int gFramesInFpsWindow = 0;
+static bool gFrameTimeInitialized = false;
+
+static void shutdownCubeRenderer()
+{
+    if (!gCubeRendererReady) {
+        return;
+    }
+
+    if (gDisplay != EGL_NO_DISPLAY &&
+        gEglSurface != EGL_NO_SURFACE &&
+        gContext != EGL_NO_CONTEXT &&
+        eglMakeCurrent(gDisplay, gEglSurface, gEglSurface, gContext)) {
+        gCubeRenderer.shutdown();
+    } else {
+        LOGE("Não foi possível ativar EGL para liberar o CubeRenderer.");
+    }
+    gCubeRendererReady = false;
+}
+
+static bool initializeCubeRenderer()
+{
+    if (!gEglReady ||
+        !eglMakeCurrent(gDisplay, gEglSurface, gEglSurface, gContext)) {
+        LOGE("Não foi possível ativar EGL para inicializar o CubeRenderer.");
+        return false;
+    }
+
+    if (!gCubeRenderer.initialize()) {
+        LOGE("Falha inicializando o CubeRenderer.");
+        return false;
+    }
+
+    gCubeRendererReady = true;
+    gCubeRenderer.resize(gWidth, gHeight);
+    gFps.store(0.0f, std::memory_order_relaxed);
+    gFramesInFpsWindow = 0;
+    gFpsWindowStart = std::chrono::steady_clock::now();
+    gFrameTimeInitialized = false;
+    return true;
+}
 
 
 // ============================================================
@@ -423,6 +475,7 @@ Java_com_pure3x_cubo3d_MainActivity_nativeSurfaceCreated(
     // Se já existia uma janela, limpar primeiro.
 
     if (gEglReady) {
+        shutdownCubeRenderer();
         destroyEGL();
     }
 
@@ -485,46 +538,10 @@ Java_com_pure3x_cubo3d_MainActivity_nativeSurfaceCreated(
         return JNI_FALSE;
     }
 
-
-    // Primeiro frame.
-    // Fundo temporário para provar que EGL está funcionando.
-
-    glViewport(
-        0,
-        0,
-        gWidth,
-        gHeight
-    );
-
-    glClearColor(
-        0.05f,
-        0.12f,
-        0.22f,
-        1.0f
-    );
-
-    glClear(
-        GL_COLOR_BUFFER_BIT |
-        GL_DEPTH_BUFFER_BIT
-    );
-
-
-    if (!eglSwapBuffers(
-            gDisplay,
-            gEglSurface)) {
-
-        LOGE(
-            "Primeiro eglSwapBuffers falhou. erro=0x%x",
-            eglGetError()
-        );
-
+    if (!initializeCubeRenderer()) {
+        gFps.store(0.0f, std::memory_order_relaxed);
         return JNI_FALSE;
     }
-
-
-    LOGI(
-        "Primeiro frame Cubo3D apresentado."
-    );
 
     return JNI_TRUE;
 }
@@ -625,6 +642,10 @@ Java_com_pure3x_cubo3d_MainActivity_nativeSurfaceChanged(
         gHeight
     );
 
+    if (!gCubeRendererReady && !initializeCubeRenderer()) {
+        return;
+    }
+    gCubeRenderer.resize(gWidth, gHeight);
 
     LOGI(
         "Viewport atualizado: %dx%d",
@@ -650,6 +671,7 @@ Java_com_pure3x_cubo3d_MainActivity_nativeSurfaceDestroyed(
     );
 
 
+    shutdownCubeRenderer();
     destroyEGL();
 
 
@@ -665,6 +687,9 @@ Java_com_pure3x_cubo3d_MainActivity_nativeSurfaceDestroyed(
 
     gWidth = 0;
     gHeight = 0;
+    gFps.store(0.0f, std::memory_order_relaxed);
+    gFramesInFpsWindow = 0;
+    gFrameTimeInitialized = false;
 
 
     LOGI(
@@ -722,32 +747,22 @@ Java_com_pure3x_cubo3d_MainActivity_nativeRenderFrame(
     }
 
 
-    glViewport(
-        0,
-        0,
-        gWidth,
-        gHeight
-    );
+    if (!gCubeRendererReady && !initializeCubeRenderer()) {
+        return;
+    }
 
+    const auto frameStart = std::chrono::steady_clock::now();
+    float deltaTime = 0.0f;
+    if (gFrameTimeInitialized) {
+        deltaTime = std::chrono::duration<float>(
+            frameStart - gLastFrameTime
+        ).count();
+    }
+    gLastFrameTime = frameStart;
+    gFrameTimeInitialized = true;
 
-    // ========================================================
-    // Frame de teste
-    //
-    // Depois este bloco será substituído pelo CubeRenderer.
-    // ========================================================
-
-    glClearColor(
-        0.05f,
-        0.12f,
-        0.22f,
-        1.0f
-    );
-
-    glClear(
-        GL_COLOR_BUFFER_BIT |
-        GL_DEPTH_BUFFER_BIT
-    );
-
+    gCubeRenderer.update(deltaTime);
+    gCubeRenderer.render();
 
     // Apresentar frame na tela Android.
 
@@ -764,9 +779,24 @@ Java_com_pure3x_cubo3d_MainActivity_nativeRenderFrame(
     }
 
 
-    LOGI(
-        "Frame apresentado: %dx%d",
-        gWidth,
-        gHeight
-    );
+    ++gFramesInFpsWindow;
+    const auto elapsed = std::chrono::duration<float>(
+        std::chrono::steady_clock::now() - gFpsWindowStart
+    ).count();
+    if (elapsed >= 1.0f) {
+        const float fps = static_cast<float>(gFramesInFpsWindow) / elapsed;
+        gFps.store(fps, std::memory_order_relaxed);
+        LOGI("Cubo3D render FPS: %.1f", fps);
+        gFramesInFpsWindow = 0;
+        gFpsWindowStart = std::chrono::steady_clock::now();
+    }
+}
+
+extern "C"
+JNIEXPORT jfloat JNICALL
+Java_com_pure3x_cubo3d_MainActivity_nativeGetFps(
+        JNIEnv*,
+        jclass)
+{
+    return gFps.load(std::memory_order_relaxed);
 }
